@@ -3,8 +3,8 @@ import bcrypt from 'bcrypt'
 import userModel from '../models/user.model.js';
 import generateJWT from '../utils/generateJWT.utils.js';
 
-export default async function signup(req,res){
-    try{
+export default async function signup(req, res) {
+    try {
         const { username, email, password } = req.body
 
         const requiredBody = z.object({
@@ -19,11 +19,11 @@ export default async function signup(req,res){
                 .regex(/[\W_]/, { message: "Password must contain at least one special character" })
         });
 
-        const isParsedWithSuccess  = requiredBody.safeParse(req.body)
-        if(!isParsedWithSuccess.success){
+        const isParsedWithSuccess = requiredBody.safeParse(req.body)
+        if (!isParsedWithSuccess.success) {
             return res.status(400).json({
-            success: false,
-            message: `invalid input format`
+                success: false,
+                message: `invalid input format`
             })
         }
 
@@ -32,7 +32,7 @@ export default async function signup(req,res){
             email
         })
 
-        if(userExists){
+        if (userExists) {
             return res.status(400).json({
                 success: false,
                 mesaage: `User already exists`
@@ -40,7 +40,7 @@ export default async function signup(req,res){
         }
 
         const hashedPassword = await bcrypt.hash(password, 10)
-    
+
         const user = await userModel.create({
             username,
             email,
@@ -53,7 +53,7 @@ export default async function signup(req,res){
             message: `You are signed up`,
             token
         })
-    }catch(err){
+    } catch (err) {
         return res.status(500).json({
             success: false,
             message: `Server error in signup EP, ${err}`
