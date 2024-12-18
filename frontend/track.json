@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "trackname": "Chlorine",
+    "artist": "21 piolet",
+    "url": "https://raw.githubusercontent.com/satymtomar/songs/main/twenty%20one%20pilots%20-%20Levitate%20(Official%20Video)%20[uv_1AKKKJnk].mp3"
+  },
+  {
+    "id": 2,
+    "trackname": "Swim",
+    "artist": "Chase Atlantic",
+    "url": "https://raw.githubusercontent.com/satymtomar/songs/main/Chase%20Atlantic%20SWIM%20Official%20Music%20Video.mp3"
+  },
+  {
+    "id": 3,
+    "trackname": "Snowman",
+    "artist": "Sia",
+    "url": "https://raw.githubusercontent.com/satymtomar/songs/main/Sia%20Snowman%E2%9B%84.mp3"
+  },
+  {
+    "id": 4,
+    "trackname": "Softcore",
+    "artist": "The Neighbourhood",
+    "url": "https://raw.githubusercontent.com/satymtomar/songs/main/The%20Neighbourhood%20Softcore%20Lyrics%20I%20m%20too%20consumed%20with%20my%20own%20life.mp3"
+  },
+  {
+    "id": 5,
+    "trackname": "Ginseng Strip 2002",
+    "artist": "Yung Lean",
+    "url": "https://raw.githubusercontent.com/satymtomar/songs/main/Yung%20Lean%20%E2%99%A6%20Ginseng%20Strip%202002%20%E2%99%A6.mp3"
+  }
+]
