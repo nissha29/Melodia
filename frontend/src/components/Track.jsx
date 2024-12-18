@@ -1,25 +1,39 @@
+import { useState, useEffect } from "react";
+import { IoPauseOutline } from "react-icons/io5";
+
 const Track = () => {
-  const track = [
-    {
-      title: "Reflection",
-      artist: "The NeighboUrhood",
-      image: "https://i.ytimg.com/vi/x47TgeRJtH0/maxresdefault.jpg",
-    },
-    {
-      title: "Sweater Weather",
-      artist: "The NeighboUrhood",
-      image:
-        "https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1386028945i/19108192._UY630_SR1200,630_.jpg",
-    },
-  ];
+  const [tracks, setTracks] = useState([]);
+  const trackInfo = async () => {
+    try {
+      const response = await fetch("../../track.json");
+      const data = await response.json();
+      setTracks(data);
+
+    } catch (error) {
+      console.error("Error fetching track data:", error);
+    }
+  };
+
+  useEffect(() => {
+    trackInfo()
+  }, [])
+
   return (
-    <div className="w-[60%] h-auto space-y-7 flex flex-col">
-      {track.map((track, index) => (
+    <div className="music_bar w-[60%] h-auto space-y-7 flex flex-col max-h-[450px] overflow-y-scroll">
+      {tracks.map((track, index) => (
         <div
           key={index}
-          className="w-[580px] h-20 rounded-md bg-primary-indigo-light flex items-center space-x-4 p-2"
+          className="w-[580px] h-[70px] rounded-md bg-primary-indigo-light flex items-center space-x-4 p-2"
         >
-          <img src={track.image} alt="" className="w-6 h-auto" />
+
+          <IoPauseOutline className="text-white text-xl" />
+          <div className="w-[52px] h-[52px]">
+            <img src={track.imageurl} alt="" className="music_track" />
+          </div>
+          <div className="flex flex-col">
+            <h3 className="base_heading text-white ">{track.trackname}</h3>
+            <h5 className="text-white text-sm font-CabinCondensed">{track.artist}</h5>
+          </div>
         </div>
       ))}
     </div>

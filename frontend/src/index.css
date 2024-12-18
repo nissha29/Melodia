@@ -16,3 +16,12 @@
 .base_heading {
   @apply text-base font-CabinCondensed;
 }
+
+.music_track {
+  @apply w-full h-full object-cover object-center rounded-md;
+}
+
+
+.music_bar::-webkit-scrollbar {
+  display: none;
+}
