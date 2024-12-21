@@ -1,4 +1,8 @@
 
-export default function updateTrack(){
+export default function updateTrack(req,res){
+    try{
 
+    }catch(err){
+
+    }
 }
