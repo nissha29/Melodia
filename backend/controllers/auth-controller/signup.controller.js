@@ -48,7 +48,19 @@ export default async function signup(req, res) {
         })
         const token = generateJWT(user._id, "15d")
 
-        return res.status(201).json({
+        const cookieOptions = {
+            maxAge: 15 * 24 * 60 * 60 * 1000,
+            sameSite: 'none',
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            domain: process.env.NODE_ENV === 'production' ? '' : 'localhost',
+            path: '/',
+        };
+
+        return res
+        .cookie('token', token, cookieOptions)
+        .status(201)
+        .json({
             success: true,
             message: `You are signed up`,
             token

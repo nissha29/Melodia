@@ -41,7 +41,19 @@ export default async function signin(req, res) {
 
     const token = generateJWT(user._id, "15d");
 
-    return res.status(200).json({
+    const cookieOptions = {
+      maxAge: 15 * 24 * 60 * 60 * 1000,
+      sameSite: 'none',
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      domain: process.env.NODE_ENV === 'production' ? '' : 'localhost',
+      path: '/',
+    };
+
+    return res
+    .cookie('token', token, cookieOptions)
+    .status(200)
+    .json({
       success: true,
       message: "You are signed in",
       token
