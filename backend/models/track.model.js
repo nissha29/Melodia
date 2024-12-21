@@ -16,24 +16,24 @@ const trackSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    trackUrl: {
+    trackPath: {
         type: String,
         required: true,
         validate: {
             validator: function(v) {
-                return /^https?:\/\/.+\.(mp3|wav|m4a|aac)$/i.test(v);
+                return /^uploads\/tracks\/.+\.(mp3|wav|m4a|aac)$/i.test(v);
             },
-            message: 'Invalid audio file URL'
+            message: 'Invalid audio file path'
         }
     },
-    imageUrl: {
+    imagePath: {
         type: String,
         required: true,
         validate: {
             validator: function(v) {
-                return /^https?:\/\/.+\.(jpg|jpeg|png|webp)$/i.test(v);
+                return /^uploads\/images\/.+\.(jpg|jpeg|png|webp)$/i.test(v);
             },
-            message: 'Invalid image URL'
+            message: 'Invalid image file path'
         }
     },
     duration: {
@@ -42,7 +42,8 @@ const trackSchema = new mongoose.Schema({
     },
     fileSize: {
         type: Number,  
-        required: true
+        required: true,
+        max: 20 * 1024 * 1024
     }
 }, {
     timestamps: true
