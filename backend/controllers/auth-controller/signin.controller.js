@@ -1,16 +1,15 @@
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
-import userModel from '../models/user.model.js';
-import generateJWT from '../utils/generateJWT.utils.js';
+import userModel from '../../modals/user.modal.js';
+import generateJWT from '../../utils/generateJWT.utils.js';
 
 export default async function signin(req, res) {
   try {
-    const { username, password, email } = req.body;
+    const { email, password } = req.body;
 
     const requiredBody = z.object({
-      username: z.string().min(3).max(100),
-      password: z.string().min(8).max(50),
       email: z.string().min(10).max(100).email(),
+      password: z.string().min(8).max(50),
     });
 
     const isParsedWithSuccess = requiredBody.safeParse(req.body);
@@ -22,7 +21,7 @@ export default async function signin(req, res) {
     }
 
 
-    const user = await userModel.findOne({ username, email });
+    const user = await userModel.findOne({ email });
     if (!user) {
       return res.status(400).json({
         success: false,

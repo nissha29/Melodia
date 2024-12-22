@@ -1,4 +1,4 @@
-import verifyJWT from "../utils/verifyJWT.utils"
+import verifyJWT from "../utils/verifyJWT.utils.js"
 
 export default function auth(req,res,next){
     try{

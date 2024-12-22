@@ -1,14 +1,14 @@
 import { z } from 'zod'
 import bcrypt from 'bcrypt'
-import userModel from '../models/user.model.js';
-import generateJWT from '../utils/generateJWT.utils.js';
+import userModel from '../../modals/user.modal.js';
+import generateJWT from '../../utils/generateJWT.utils.js';
 
 export default async function signup(req, res) {
     try {
-        const { username, email, password } = req.body
+        const { name, email, password } = req.body
 
         const requiredBody = z.object({
-            username: z.string().min(3).max(100),
+            name: z.string().min(3).max(100),
             email: z.string().min(10).max(100).email(),
             password: z.string()
                 .min(8, { message: "Password must be at least 8 characters long" })
@@ -23,7 +23,7 @@ export default async function signup(req, res) {
         if (!isParsedWithSuccess.success) {
             return res.status(400).json({
                 success: false,
-                message: `invalid input format`
+                message: `invalid input format, ${isParsedWithSuccess.error}`
             })
         }
 
@@ -42,7 +42,7 @@ export default async function signup(req, res) {
         const hashedPassword = await bcrypt.hash(password, 10)
 
         const user = await userModel.create({
-            username,
+            name,
             email,
             password: hashedPassword,
         })
@@ -63,7 +63,7 @@ export default async function signup(req, res) {
         .json({
             success: true,
             message: `You are signed up`,
-            token
+            token: token,
         })
     } catch (err) {
         return res.status(500).json({
