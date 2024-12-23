@@ -88,5 +88,5 @@ const trackSchema = new mongoose.Schema({
     timestamps: true
 });
 
-const trackModel = mongoose.model('Track', trackSchema)
-export default trackModel
+const trackModal = mongoose.model('Track', trackSchema);
+export default trackModal;

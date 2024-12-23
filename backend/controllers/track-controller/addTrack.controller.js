@@ -1,9 +1,6 @@
 import trackValidation from "../../utils/trackValidation.utils.js";
-import getTrackAndImagePath from "../../utils/getTrackAndImagePath.js";
-import getTrackAndImageUrl from "../../utils/getTrackAndImageUrl.js";
 import trackModal from "../../modals/track.modal.js";
 import getTrackDuration from "../../utils/getTrackDuration.js";
-import getTrackAndImageSize from "../../utils/getTrackAndImageSize.js";
 
 export default async function addTrack(req,res){
     try{
@@ -25,15 +22,17 @@ export default async function addTrack(req,res){
         if(!isParsedWithSuccess.success){
             return res.status(400).json({
                 success: false,
-                message: `Provided input in valid format, ${isParsedWithSuccess.error}`,
-                mimetype: `${req.files.track[0].mimetype}, ${req.files.image[0].mimetype}`
+                message: `Please Provide input in valid format, ${isParsedWithSuccess.error}`,
             })
         }
 
-        const { trackPath, imagePath } = getTrackAndImagePath(req);
-        const { trackUrl, imageUrl } = getTrackAndImageUrl(req);
-        const duration = getTrackDuration(track);
-        const { trackSize, imageSize } = getTrackAndImageSize(req);
+        const trackPath = track.path;
+        const imagePath = image.path;
+        const trackUrl = `${process.env.DOMAIN}/uploads/tracks/${track.filename}`;
+        const imageUrl = `${process.env.DOMAIN}/uploads/images/${image.filename}`;
+        const duration = await getTrackDuration(track);
+        const trackSize = track.size;
+        const imageSize = image.size;
 
         const newTrack = new trackModal({
             userId,
