@@ -1,6 +1,6 @@
 import { z } from 'zod'
 import bcrypt from 'bcrypt'
-import userModel from '../../modals/user.modal.js';
+import userModal from '../../modals/user.modal.js';
 import generateJWT from '../../utils/generateJWT.utils.js';
 
 export default async function signup(req, res) {
@@ -28,7 +28,7 @@ export default async function signup(req, res) {
         }
 
 
-        const userExists = await userModel.findOne({
+        const userExists = await userModal.findOne({
             email
         })
 
@@ -41,7 +41,7 @@ export default async function signup(req, res) {
 
         const hashedPassword = await bcrypt.hash(password, 10)
 
-        const user = await userModel.create({
+        const user = await userModal.create({
             name,
             email,
             password: hashedPassword,

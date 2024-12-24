@@ -5,6 +5,7 @@ import cors from 'cors'
 import connectDB from './db/connect.db.js'
 import userRouter from './routes/user.route.js'
 import trackRouter from './routes/track.route.js'
+import interactionRouter from './routes/interaction.route.js'
 import fs from 'fs/promises';
 
 const app = express()
@@ -29,8 +30,9 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static('./uploads'));
 
-app.use('/user', userRouter);
-app.use('/track', trackRouter);
+app.use('api/user', userRouter);
+app.use('api/track', trackRouter);
+app.use('/api/interaction', interactionRouter);
 
 async function ensureDirectoryExistence() {
     const directories = ["uploads", "uploads/tracks", "uploads/images"];

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import bcrypt from 'bcrypt';
-import userModel from '../../modals/user.modal.js';
+import userModal from '../../modals/user.modal.js';
 import generateJWT from '../../utils/generateJWT.utils.js';
 
 export default async function signin(req, res) {
@@ -21,7 +21,7 @@ export default async function signin(req, res) {
     }
 
 
-    const user = await userModel.findOne({ email });
+    const user = await userModal.findOne({ email });
     if (!user) {
       return res.status(400).json({
         success: false,
