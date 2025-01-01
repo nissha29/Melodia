@@ -10,6 +10,16 @@ const trackValidation = z.object({
         .min(1, "Artist name is required")
         .max(200, "Artist name cannot exceed 200 characters")
         .trim(),
+
+    genre: z.enum([
+        'Bollywood', 'Classical', 'Devotional', 'Folk', 'Ghazal',
+        'Bhajan', 'Qawwali', 'Indie Pop', 'Sufi', 'Punjabi',
+        'Bhangra', 'Carnatic', 'Hindustani', 'Fusion',
+        'Regional Film Songs', 'Instrumental', 'Wedding Songs',
+        'Dance Numbers', 'Patriotic', 'Rabindra Sangeet'
+    ], {
+        errorMap: () => ({ message: "Invalid genre selected" })
+    }),
         
     track: z.object({
         mimetype: z.string()

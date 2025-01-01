@@ -12,12 +12,12 @@ export default async function addTrack(req,res){
         }
 
         const userId = req.userId;
-        const { songTitle, artistName } = req.body;
+        const { songTitle, artistName, genre } = req.body;
         const track = req.files.track[0];
         const image = req.files.image[0];
 
         const isParsedWithSuccess = trackValidation.safeParse({
-            songTitle, artistName, track, image
+            songTitle, artistName, genre, track, image
         });
         if(!isParsedWithSuccess.success){
             return res.status(400).json({
@@ -45,6 +45,7 @@ export default async function addTrack(req,res){
             duration,
             trackSize,
             imageSize,
+            genre
         })
 
         await newTrack.save();

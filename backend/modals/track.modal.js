@@ -84,6 +84,11 @@ const trackSchema = new mongoose.Schema({
         min: 0,
         max: 5 * 1024 * 1024
     },
+    genre: {
+        type: String,
+        enum: ['Bollywood','Classical','Devotional', 'Folk','Ghazal','Bhajan','Qawwali','Indie Pop','Sufi','Punjabi','Bhangra','Carnatic','Hindustani','Fusion','Regional Film Songs','Instrumental','Wedding Songs','Dance Numbers','Patriotic','Rabindra Sangeet'],
+        required: true,
+    }
 }, {
     timestamps: true
 });

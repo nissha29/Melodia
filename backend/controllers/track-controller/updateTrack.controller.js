@@ -29,6 +29,7 @@ export default async function updateTrack(req,res){
 
         updatedTrack.songTitle = req.body?.songTitle || existingTrack.songTitle;
         updatedTrack.artistName = req.body?.artistName || existingTrack.artistName;
+        updatedTrack.genre = req.body?.genre || existingTrack.genre;
 
         if(req.files){
             const track = req.files?.track[0] || existingTrack;
