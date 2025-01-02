@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+
+
 module.exports = {
   content: [
     "./index.html",
@@ -7,17 +9,17 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-dark": "#19121F",
-        "primary-dark2": "#372743",
-        "primary-pink": "#DD0CFF",
-        "primary-indigo": "#27123C",
-        "primary-indigo-light": "#372743",
+        "primary-bg": "#215B4B",
+        "secondary-bg": "#16271D",
+        "primary-text": "#215B4B",
+        "secondary-text": "#16271D"
       },
       fontFamily: {
-        "CabinCondensed": ["Cabin Condensed", "Sarif"],
-        "Poppins": ["Poppins", "Sarif"]
+        "playwrite": ["Playwrite US Modern", "Serif"],
       },
-
+      spacing: {
+        'default': '4rem',
+      }
     },
   },
   plugins: [],
