@@ -18,7 +18,16 @@ module.exports = {
         "playwrite": ["Playwrite US Modern", "Serif"],
       },
       spacing: {
-        'default': '4rem',
+        'default': '25rem',
+      },
+      keyframes: {
+        floating: {
+          '0%, 100%': { transform: 'translateX(30px)' },
+          '50%': { transform: 'translateY(10px)' },
+        }
+      },
+      animation: {
+        floating: 'floating 3s ease-in-out infinite',
       }
     },
   },
