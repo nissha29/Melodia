@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IoSearchOutline } from 'react-icons/io5';
+// import { IoSearchOutline } from 'react-icons/io5';
 
 const Header = () => {
   const [active, setActive] = useState('');
@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <div className="w-[60%] flex justify-between items-center h-8 pt-14">
       <div className="w-[45%] bg-primary-dark bg-opacity-45 flex gap-2 p-[10px] rounded-full">
-        <IoSearchOutline className="text-2xl text-white mx-2" />
+        {/* <IoSearchOutline className="text-2xl text-white mx-2" /> */}
         <input
           className="w-full bg-transparent outline-none placeholder:font-bold font-CabinCondensed text-white"
           type="text"
