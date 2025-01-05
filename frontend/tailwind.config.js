@@ -26,7 +26,7 @@ module.exports = {
       },
       keyframes: {
         floating: {
-          '0%, 100%': { transform: 'translateX(50px)' },
+          '0%, 100%': { transform: 'translateX(40px)' },
           '50%': { transform: 'translateY(5px)' },
         }
       },
