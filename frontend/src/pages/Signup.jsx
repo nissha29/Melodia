@@ -16,7 +16,7 @@ function Signup() {
               <label htmlFor="name" className="text-lg font-medium text-white text-left font-playwrite">
                 Full Name
               </label>
-              <div className="flex items-center border border-secondary-bg rounded-md focus-within:border transition-colors duration-300">
+              <div className="flex items-center border border-secondary-bg rounded-md focus-within:border-white transition-colors duration-300">
                 <User className="m-2 text-secondary-text" />
                 <input
                   type="text"
@@ -35,7 +35,7 @@ function Signup() {
               <label htmlFor="name" className="text-lg font-medium text-white text-left font-playwrite">
                 Email
               </label>
-              <div className="flex items-center border border-secondary-bg rounded-md focus-within:border transition-colors duration-300">
+              <div className="flex items-center border border-secondary-bg rounded-md focus-within:border-white transition-colors duration-300">
                 <Mail className="m-2 text-secondary-text" />
                 <input
                   type="text"
@@ -54,7 +54,7 @@ function Signup() {
               <label htmlFor="password" className="text-lg font-medium text-white text-left font-playwrite">
                 Password
               </label>
-              <div className="flex items-center border border-secondary-bg rounded-md focus-within:border transition-colors duration-300">
+              <div className="flex items-center border border-secondary-bg rounded-md focus-within:border-white transition-colors duration-300">
                 <Lock className="m-2 text-secondary-text" />
                 <input
                   type="password"
