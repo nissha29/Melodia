@@ -1,13 +1,10 @@
-import LandingPage from "./pages/LandingPage.jsx";
+import Routing from "./utils/Routing.jsx";
 
 function App() {
   return (
-    <div className="bg-primary-bg">
-      <LandingPage />
-      <div className="h-[50rem]">
-
-      </div>
-    </div>
+    <>
+      <Routing />
+    </>
   );
 }
 

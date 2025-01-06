@@ -11,7 +11,7 @@ const HeroSection = () => {
         <div className="flex justify-center items-center pt-20">
           <img src={birds} alt="birds" className="xl:w-80 lg:w-64 md:w-56 sm:w-52 w-40" />
         </div>
-        <div className="absolute lg:top-10 lg:right-36 md:top-10 md:right-16 sm:top-[4.2rem] sm:right-16 top-[4.2rem] right-6">
+        <div className="absolute lg:top-10 lg:right-36 md:top-10 md:right-16 sm:top-[4.2rem] sm:right-16 top-[4.2rem] right-8">
           <img 
             src={koyal} 
             alt="koyal" 

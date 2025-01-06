@@ -8,7 +8,7 @@ import Footer from '../components/Footer.jsx'
 function LandingPage() {
   return (
     <div>
-        <div className='pt-10 xl:h-[96.5rem] lg:h-[85rem] md:h-[70.5rem] sm:h-[111.5rem] h-[93rem]'>
+        <div className='bg-primary-bg pt-10 xl:h-[146.5rem] lg:h-[135rem] md:h-[120.5rem] sm:h-[161.5rem] h-[143rem]'>
             <Navbar />
             <HeroSection />
             <FeaturesSection />
