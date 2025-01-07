@@ -3,8 +3,10 @@ import birds from '../assets/birds.png'
 import koyal from '../assets/koyal.png'
 import sparrow from '../assets/sparrow.png'
 import yellowBird from '../assets/yellowBird.png'
+import { useNavigate } from 'react-router-dom';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
   return (
     <div className="relative flex flex-col justify-center items-center gap-4 font-playwrite">
       <div>
@@ -37,7 +39,11 @@ const HeroSection = () => {
         <div className="text-white xl:text-9xl lg:text-8xl md:text-7xl sm:text-6xl text-4xl">Drop The Beat</div>
       </div>
       <div className="text-white xl:text-8xl lg:text-7xl md:text-6xl sm:pt-14 pt-5 sm:text-5xl text-3xl">Feel The Heat</div>
-      <button className="bg-secondary-bg hover:bg-[#16271dda] rounded-full xl:px-9 xl:py-8 text-white mt-11 xl:text-4xl lg:px-6 lg:py-5 lg:text-3xl md:px-4 md:py-3 md:text-2xl sm:px-5 sm:py-4 sm:text-2xl px-4 py-3 text-xl">
+      <button 
+        onClick={()=>{
+          navigate('/signin')
+        }} 
+        className="bg-secondary-bg hover:bg-[#16271dda] rounded-full xl:px-9 xl:py-8 text-white mt-11 xl:text-4xl lg:px-6 lg:py-5 lg:text-3xl md:px-4 md:py-3 md:text-2xl sm:px-5 sm:py-4 sm:text-2xl px-4 py-3 text-xl">
         Start Listening Now
       </button>
     </div>
