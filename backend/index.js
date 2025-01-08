@@ -30,8 +30,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static('./uploads'));
 
-app.use('api/user', userRouter);
-app.use('api/track', trackRouter);
+app.use('/api/user', userRouter);
+app.use('/api/track', trackRouter);
 app.use('/api/interaction', interactionRouter);
 
 async function ensureDirectoryExistence() {

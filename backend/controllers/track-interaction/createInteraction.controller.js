@@ -1,4 +1,4 @@
-import trackInteractionModal from "../../modals/trackInteraction.modal";
+import trackInteractionModal from "../../modals/trackInteraction.modal.js";
 
 export default async function createInteraction(){
     try{

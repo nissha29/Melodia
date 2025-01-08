@@ -1,17 +1,66 @@
-import React from 'react'
+import React, { useState } from 'react'
 import woman from '../assets/woman.png'
-import { Eye, Mail, User, Lock } from 'lucide-react'
+import { Eye, EyeOff, Mail, Lock, AlertTriangle } from 'lucide-react'
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import URL from '../../constants.js';
 
 function Signin() {
+  const [error, setError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  })
+
+  const handleChange = async(e)=>{
+    setError('');
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const handleSubmit = async(e)=>{
+    setError('');
+    e.preventDefault();
+    try{
+      const response = await axios.post(
+        `${URL}/api/user/signin`,
+        formData,
+        {
+          withCredentials: true,
+        }
+      )
+    }catch(err){
+      if (err.response) {
+        if (err.response.status === 404) {
+          setError('Invalid credentials');
+        } else if (err.response.status === 500) {
+          setError('Server error');
+        } else {
+          setError(err.response.data.message || 'An error occurred');
+        }
+      }
+    }
+  } 
+
   const navigate = useNavigate();
   return (
     <div className='bg-primary-bg flex sm:flex-row flex-col-reverse min-h-screen p-10 justify-center items-center'>
       <div className='flex flex-col gap-6 text-center justify-center items-center'>
         <div className='text-secondary-text lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-thin font-playwrite'>Signin to Melodia</div>
-        <div className='border border-secondary-bg lg:w-[27rem] lg:h-[21rem] md:w-[23rem] md:h-[24rem] sm:w-[21rem] sm:h-[25rem] rounded-xl p-4'>
-          <form className='flex flex-col gap-4'>
+        <div className='border border-secondary-bg lg:w-[27rem] md:w-[23rem] sm:w-[21rem] py-4 rounded-xl p-4'>
+          {error && (
+                <div
+                  className="flex items-center bg-red-800/20 border border-red-950 text-red-950 p-3 rounded-md mb-6 space-x-2 font-playwrite"
+                  >
+                  <AlertTriangle className="text-red-950" size={20} />
+                  <p className="text-sm">{error}</p>
+                </div>
+          )}
+          <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
             <div className="space-y-2 flex flex-col justify-start">
               <label htmlFor="name" className="text-lg font-medium text-white text-left font-playwrite">
                 Email
@@ -22,8 +71,8 @@ function Signin() {
                   type="text"
                   id="email"
                   name="email"
-                  //   value=""
-                  // onChange=""
+                  value={formData.email}
+                  onChange={handleChange}
                   placeholder="john@example.com"
                   autoComplete="user email"
                   className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-secondary-text"
@@ -38,11 +87,11 @@ function Signin() {
               <div className="flex items-center border border-secondary-bg rounded-md focus-within:border-white transition-colors duration-300">
                 <Lock className="m-2 text-secondary-text" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
-                  // value=""
-                  // onChange=""
+                  value={formData.password}
+                  onChange={handleChange}
                   placeholder="••••••••"
                   autoComplete="user password"
                   className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-secondary-text"
@@ -50,15 +99,16 @@ function Signin() {
                 />
                 <button
                   type="button"
-                  // onClick=""
+                  onClick={()=>{
+                    setShowPassword(prev => !prev)
+                  }}
                   className="m-2 focus:outline-none hover:text-secondary-text"
                 >
-                  <Eye className="text-white hover:text-secondary-text" />
-                  {/* {showPassword ? (
-                          <EyeOff className="text-slate-400 hover:text-slate-300" />
+                  {showPassword ? (
+                          <EyeOff className="text-white hover:text-secondary-text" />
                         ) : (
-                          <Eye className="text-slate-400 hover:text-slate-300" />
-                        )} */}
+                          <Eye className="text-white hover:text-secondary-text" />
+                        )}
                 </button>
               </div>
             </div>

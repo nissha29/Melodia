@@ -23,7 +23,7 @@ export default async function signin(req, res) {
 
     const user = await userModal.findOne({ email });
     if (!user) {
-      return res.status(400).json({
+      return res.status(404).json({
         success: false,
         message: "User does not exist"
       });

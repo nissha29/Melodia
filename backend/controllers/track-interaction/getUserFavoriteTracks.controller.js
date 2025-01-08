@@ -1,3 +1,4 @@
+import trackInteractionModal from "../../modals/trackInteraction.modal.js";
 export default async function getUserFavoriteTracks(req,res){
     try{
         const userId = req.userId;
