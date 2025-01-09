@@ -12,12 +12,20 @@ export default function auth(req,res,next){
         req.userId = response.id;
         next();
     }catch(err){
+        if (err instanceof jwt.TokenExpiredError) {
+            return res.status(401).json({ 
+                success: false,
+                message: "Token has expired. Please log in again." 
+            });
+        }
         if (err instanceof jwt.JsonWebTokenError) {
             return res.status(401).json({ 
-                message: 'You are unauthorized, invalid token'
-            })
+                success: false,
+                message: "Invalid token. You are unauthorized." 
+            });
         }
         return res.status(500).json({ 
+            success: false,
             message: 'Server error during authentication', error: `${err}` 
         })
     }

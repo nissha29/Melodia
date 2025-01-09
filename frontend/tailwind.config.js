@@ -9,10 +9,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-bg": "#415d43",
-        "secondary-bg": "#111d13",
-        "primary-text": "#215B4B",
-        "secondary-text": "#16271D"
+        "primary-bg": "#343a40ee",
+        "secondary-bg": "#6B4C68",
+        "primary-text": "#997095",
+        "secondary-text": "#6B4C68"
       },
       fontFamily: {
         "playwrite": ["Playwrite US Modern", "Serif"],

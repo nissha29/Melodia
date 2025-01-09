@@ -22,10 +22,10 @@ function Navbar() {
         </div>
         {isOpen && (
         <div className='md:hidden absolute right-10 top-[1.2rem] font-playwrite text-[1rem] text-center bg-white text-secondary-text flex flex-col gap-2 px-5 py-3 rounded-sm mt-10 z-10'>
-          <NavLink to={'/signup'} className='px-2 py-1 rounded-lg hover:bg-[#16271d2f] text-secondary-text transition-colors duration-200'>
+          <NavLink to={'/signup'} className='px-2 py-1 rounded-lg hover:bg-[#d9bce036] text-secondary-text transition-colors duration-200'>
             Signup
           </NavLink>
-          <NavLink to={'/signin'} className='px-5 py-1 rounded-lg hover:bg-[#16271d2f] text-secondary-text transition-colors duration-200'>
+          <NavLink to={'/signin'} className='px-5 py-1 rounded-lg hover:bg-[#d9bce036] text-secondary-text transition-colors duration-200'>
             Login
           </NavLink>
         </div>
