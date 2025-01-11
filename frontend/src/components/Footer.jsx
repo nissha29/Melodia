@@ -10,6 +10,9 @@ function Footer() {
         <img src={baba} alt="baba" className='lg:w-72 md:w-56 sm:w-48 w-28'/>
       </div>
       <div className='bg-secondary-bg sm:rounded-tl-full rounded-tl-3xl lg:h-44 sm:h-36 h-32 sm:mt-20 lg:mt-28 relative'>
+      <div className='text-white text-center font-playwrite flex absolute sm:bottom-3 sm:left-3 gap-2 bottom-1 left-1'>
+                    © 2025 Melodia. All rights reserved.
+                </div>
         <div className='text-white text-sm flex absolute sm:bottom-3 sm:right-3 gap-2 bottom-1 right-1 font-playwrite'>
           <div>Made with </div>
           <Heart className='text-red-600' size={24}/>
