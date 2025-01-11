@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { Menu } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-
+  
   function openMenuBar(){
     setIsOpen((prev)=> !prev)
   }
@@ -22,12 +22,7 @@ function Navbar() {
                 <NavLink to={'/signup'} className='pt-2 hover:cursor-pointer'>Signup</NavLink>
                 <NavLink to={'/signin'} className='bg-white rounded-full md:px-6 md:py-3 sm:px-5 sm:py-3 text-secondary-text hover:bg-[#e9e9e9] hover:cursor-pointer'>Login</NavLink>
             </div>
-            {/* <button 
-              onClick={toggleTheme} 
-              className={`ml-4 p-2 rounded-full ${isDarkMode ? 'bg-gray-800 text-white' : 'bg-gray-200 text-black'} hover:bg-gray-300 transition-colors duration-300`}
-            >
-              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-            </button> */}
+
         </div>
         {isOpen && (
         <div className='md:hidden absolute right-10 top-[1.2rem] font-playwrite text-[1rem] text-center bg-white text-secondary-text flex flex-col gap-2 px-5 py-3 rounded-sm mt-10 z-10'>
