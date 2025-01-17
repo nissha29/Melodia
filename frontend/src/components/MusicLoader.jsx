@@ -1,7 +1,8 @@
 import React from 'react';
 
+
 const MusicLoader = () => {
-  return (
+   return (
     <div className="flex items-center justify-center w-full h-full min-h-[200px]">
       <div className="flex items-center gap-2 p-8">
     
