@@ -25,27 +25,25 @@ export default async function updateTrack(req,res){
             })
         }
 
-        let updatedTrack = {};
+        let updatedTrack = {
+            songTitle: req.body?.songTitle || existingTrack.songTitle,
+            artistName: req.body?.artistName || existingTrack.artistName,
+            genre: req.body?.genre || existingTrack.genre
+        };
 
-        updatedTrack.songTitle = req.body?.songTitle || existingTrack.songTitle;
-        updatedTrack.artistName = req.body?.artistName || existingTrack.artistName;
-        updatedTrack.genre = req.body?.genre || existingTrack.genre;
-
-        if(req.files){
-            const track = req.files?.track[0] || existingTrack;
-            const image = req.files?.image[0] || existingTrack;
-
-            if(req.files.track[0]){
-                updatedTrack.trackPath = track.path;
-                updatedTrack.trackUrl =  `${process.env.DOMAIN}/uploads/tracks/${track.filename}`;
+        if (req.files) {
+            
+            if (req.files.track?.[0]) {
+                const track = req.files.track[0];
+                updatedTrack.trackUrl = track.path;
                 updatedTrack.trackSize = track.size;
-                updatedTrack.duration = await getTrackDuration(req.files.track[0]);
+                updatedTrack.duration = await getTrackDuration(track);
             }
 
-            if(req.files.image[0]){
-               updatedTrack.imagePath = image.path;
-               updatedTrack.imageUrl = `${process.env.DOMAIN}/uploads/images/${image.filename}`;
-               updatedTrack.mageSize = image.size;
+            if (req.files.image?.[0]) {
+                const image = req.files.image[0];
+                updatedTrack.imageUrl = image.path;
+                updatedTrack.imageSize = image.size;
             }
         }
 

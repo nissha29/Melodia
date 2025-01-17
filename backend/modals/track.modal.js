@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const trackSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',  
+        ref: 'User',
         required: true
     },
     songTitle: {
@@ -11,43 +11,23 @@ const trackSchema = new mongoose.Schema({
         required: true,
         trim: true,
         min: 2,
-        maxLength: 200 
+        maxLength: 200
     },
     artistName: {
         type: String,
         required: true,
         trim: true,
         min: 2,
-        maxLength: 200 
-    },
-    trackPath: {
-        type: String,
-        required: true,
-        validate: {
-            validator: function(v) {
-                return /^uploads\/tracks\/.+\.(mp3|wav|m4a|aac)$/i.test(v);
-            },
-            message: 'Invalid track file path'
-        }
+        maxLength: 200
     },
     trackUrl: {
         type: String,
         required: true,
         validate: {
             validator: function(v) {
-                return /^https?:\/\/(?:localhost|[\w-]+(?:\.[\w-]+)+)(?::\d+)?\/uploads\/tracks\/[\w-]+\.(mp3|wav|m4a|aac)$/i.test(v);
+                return /^https?:\/\/res\.cloudinary\.com\/.*\/video\/upload\/.*\.(mp3|wav|mpeg|x-wav|m4a|aac|mpeg3)$/i.test(v);
             },
-            message: 'Invalid track url'
-        }
-    },
-    imagePath: {
-        type: String,
-        required: true,
-        validate: {
-            validator: function(v) {
-                return /^uploads\/images\/.+\.(jpg|jpeg|png|webp)$/i.test(v);
-            },
-            message: 'Invalid image file path'
+            message: 'Invalid Cloudinary track URL'
         }
     },
     imageUrl: {
@@ -55,16 +35,16 @@ const trackSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: function(v) {
-                return /^https?:\/\/(?:localhost|[\w-]+(?:\.[\w-]+)+)(?::\d+)?\/uploads\/images\/[\w-]+\.(?:jpg|jpeg|png)$/i.test(v);
+                return /^https?:\/\/res\.cloudinary\.com\/.*\/image\/upload\/.*\.(jpg|jpeg|png|webp)$/i.test(v);
             },
-            message: 'Invalid image url'
+            message: 'Invalid Cloudinary image URL'
         }
     },
     duration: {
-        type: Number,  
+        type: Number,
         required: true,
         min: 0,
-        max: 1200, 
+        max: 1200,
         validate: {
             validator: function(v) {
                 return v <= 1200;
@@ -73,25 +53,28 @@ const trackSchema = new mongoose.Schema({
         }
     },
     trackSize: {
-        type: Number,  
+        type: Number,
         required: true,
         min: 0,
         max: 20 * 1024 * 1024
     },
     imageSize: {
-        type: Number,  
+        type: Number,
         required: true,
         min: 0,
         max: 5 * 1024 * 1024
     },
     genre: {
         type: String,
-        enum: ['Bollywood','Classical','Devotional', 'Folk','Ghazal','Bhajan','Qawwali','Indie Pop','Sufi','Punjabi','Bhangra','Carnatic','Hindustani','Fusion','Regional Film Songs','Instrumental','Wedding Songs','Dance Numbers','Patriotic','Rabindra Sangeet'],
+        enum: ['Bollywood', 'Classical', 'Devotional', 'Folk', 'Ghazal', 'Bhajan', 'Qawwali', 
+               'Indie Pop', 'Sufi', 'Punjabi', 'Bhangra', 'Carnatic', 'Hindustani', 'Fusion', 
+               'Regional Film Songs', 'Instrumental', 'Wedding Songs', 'Dance Numbers', 
+               'Patriotic', 'Rabindra Sangeet'],
         required: true,
     }
 }, {
     timestamps: true
 });
 
-const trackModal = mongoose.model('Track', trackSchema);
-export default trackModal;
+const Track = mongoose.model('Track', trackSchema);
+export default Track;

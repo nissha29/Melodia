@@ -22,7 +22,5 @@ trackRouter.patch('/:id', auth, upload.fields([
 trackRouter.delete('/:id', auth, deleteTrack);
 trackRouter.get('/', getAllTracks);
 trackRouter.get('/my-tracks', auth, getUserSpecificTracks);
-trackRouter.post('/')
-
 
 export default trackRouter;
