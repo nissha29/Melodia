@@ -5,7 +5,7 @@ import { Heart } from 'lucide-react';
 function Footer() {
   return (
     <div>
-     <div className='relative bottom-0'>
+     <div className='bottom-0 relative'>
       <div className='absolute lg:top-[-12rem] lg:left-10 md:top-[-9rem] md:left-10 sm:top-[-9rem] sm:left-10 top-[-4.5rem] left-5 z-10 animate-floating'>
         <img src={baba} alt="baba" className='lg:w-72 md:w-56 sm:w-48 w-28'/>
       </div>
