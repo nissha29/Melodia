@@ -13,7 +13,6 @@ export const authService = {
         if(! token){
             setAuth({
                 isAuthenticated: false,
-                isLoading: false,
                 user: null,
             })
             return;
@@ -33,7 +32,6 @@ export const authService = {
                     );
                     setAuth({
                         isAuthenticated: true,
-                        isLoading: false,
                         user: {
                             name: response.data.name,
                             email: response.data.email,
@@ -44,7 +42,6 @@ export const authService = {
                     Cookies.remove(AUTH_TOKEN_KEY);
                     setAuth({
                         isAuthenticated: false,
-                        isLoading: false,
                         user: null,
                     })
                 }
@@ -54,16 +51,15 @@ export const authService = {
             Cookies.remove(AUTH_TOKEN_KEY);
             setAuth({
                 isAuthenticated: false,
-                isLoading: false,
                 user: null,
             })
         }
     },
 
     signIn(setAuth, response){
+        Cookies.set(AUTH_TOKEN_KEY, response.data.token);
         setAuth({
             isAuthenticated: true,
-            isLoading: false,
             user: {
                 name: response.data.name,
                 email: response.data.email,
@@ -75,7 +71,6 @@ export const authService = {
         Cookies.remove(AUTH_TOKEN_KEY);
         setAuth({
             isAuthenticated: false,
-            isLoading: false,
             user: null,
         })
     }

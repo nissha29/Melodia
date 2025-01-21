@@ -1,21 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useRecoilValue } from 'recoil'
+import Cookies from 'js-cookie'
 import { authState } from '../store/atoms/authState.js'
-import { useNavigate } from 'react-router-dom';
-import MusicLoader from '../components/MusicLoader.jsx';
+import { Navigate } from 'react-router-dom';
 
 function ProtectedRoute({ children }) {
-  const navigate = useNavigate();
   const auth = useRecoilValue(authState);
+  const token = Cookies.get('token');
 
-  useEffect(()=>{
-    if(!auth.isAuthenticated){
-        navigate('/signin')
-      }
-  }, [auth.isAuthenticated,navigate])
-
-  if (auth.isLoading) {
-    return <MusicLoader/>
+  if (!token && !auth.isAuthenticated) {
+    return <Navigate to="/signin" replace />;
   }
 
   return children

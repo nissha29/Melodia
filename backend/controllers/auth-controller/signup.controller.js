@@ -23,7 +23,7 @@ export default async function signup(req, res) {
         if (!isParsedWithSuccess.success) {
             return res.status(400).json({
                 success: false,
-                message: `invalid input format, ${isParsedWithSuccess.error}`
+                message: `Invalid input format`
             })
         }
 
@@ -33,7 +33,7 @@ export default async function signup(req, res) {
         })
 
         if (userExists) {
-            return res.status(400).json({
+            return res.status(409).json({
                 success: false,
                 mesaage: `User already exists`
             })

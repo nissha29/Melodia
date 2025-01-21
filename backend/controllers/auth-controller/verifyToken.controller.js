@@ -9,7 +9,7 @@ export default async function verifyToken(req,res){
             response
         })
     }catch(err){
-        return res.status(500).json({
+        return res.status(401).json({
             success: false,
             message: `Invalid token provided`
         })

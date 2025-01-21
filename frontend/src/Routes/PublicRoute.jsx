@@ -14,10 +14,6 @@ function PublicRoute({ children }) {
       }
   }, [auth.isAuthenticated,navigate])
 
-//   if (auth.isLoading) {
-//     return <MusicLoader/>
-//   }
-
   return children
 }
 

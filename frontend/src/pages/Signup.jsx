@@ -42,6 +42,8 @@ function Signup() {
     }catch(err){
       if (err.response) {
         if (err.response.status === 400) {
+          setError('Invalid Credentials');
+        } else if(err.response.status === 409) {
           setError('User already exists');
         } else if (err.response.status === 500) {
           setError('Server error');
