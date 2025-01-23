@@ -13,7 +13,7 @@ const AddSong = () => {
   };
 
   return (
-    <div className="w-full max-w-md bg-primary-bg bg-opacity-100 rounded-lg p-6">
+    <div className="w-full max-w-md bg-[#262a2e] shadow-sm shadow-primary-text rounded-lg p-6">
       <div className="mb-6">
         <h2 className="text-xl font-bold text-white">Add New Song</h2>
       </div>
@@ -24,7 +24,8 @@ const AddSong = () => {
           </label>
           <input 
             type="text"
-            className="w-full px-3 py-2 text-white bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-[#997095]"
+            className="w-full px-3 py-2 text-white bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-white placeholder-gray-600"
+            placeholder='kabhi kabhi mere dil mein'
           />
         </div>
         <div>
@@ -33,7 +34,8 @@ const AddSong = () => {
           </label>
           <input 
             type="text"
-            className="w-full px-3 py-2 text-white bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-[#997095]"
+            className="w-full px-3 py-2 text-white bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-white placeholder-gray-600"
+            placeholder='Lata Mangeshkar'
           />
         </div>
         <div>
@@ -41,11 +43,11 @@ const AddSong = () => {
             Genre
           </label>
           <select 
-            className="w-full px-3 py-2 text-primary-bg bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-[#997095]"
+            className="w-full px-3 py-2 text-white bg-[#262a2e] border border-[#997095] rounded-md focus:outline-none focus:border-white"
           >
             <option value="">Select genre</option>
             {genres.map((genre) => (
-              <option key={genre} value={genre}>
+              <option key={genre} value={genre} className='bg-[#262a2e]'>
                 {genre}
               </option>
             ))}
@@ -58,7 +60,7 @@ const AddSong = () => {
           <input 
             type="file"
             accept="audio/*"
-            className="w-full px-3 py-2 text-white border border-[#997095] rounded-md focus:outline-none focus:border-[#997095]"
+            className="w-full px-3 py-2 text-white border border-[#997095] rounded-md focus:border-white focus:outline-none"
           />
         </div>
         <div>
@@ -68,7 +70,7 @@ const AddSong = () => {
           <input 
             type="file"
             accept="image/*"
-            className="w-full px-3 py-2 text-white border border-[#997095] rounded-md focus:outline-none focus:border-[#997095]"
+            className="w-full px-3 py-2 text-white border border-[#997095] rounded-md focus:outline-none focus:border-white"
           />
         </div>
         <button 
