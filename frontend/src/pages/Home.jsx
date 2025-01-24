@@ -3,6 +3,7 @@ import HomeSidebar from '../components/HomeSidebar';
 import HomeNavbar from '../components/HomeNavbar';
 import HomeHeroBanner from '../components/HomeHeroBanner';
 import Songs from '../components/Songs';
+import Categories from '../components/Categories';
 
 const HomePage = () => {
   const topSongs = [
@@ -18,14 +19,15 @@ const HomePage = () => {
   ];
 
   return (
-    <div className='flex h-screen overflow-hidden'>
+    <div className='flex h-screen bg-[#171a1d]'>
       <div>
         <HomeSidebar />
       </div>
-      <div className="flex bg-[#171a1d] text-white font-playwrite w-full pl-10">
-        <div className="flex-1 flex flex-col">
+      <div className="flex text-white font-playwrite w-full">
+        <div className="flex-1 flex flex-col justify-between">
           <HomeNavbar />
           <HomeHeroBanner />
+          {/* <Categories/> */}
           <Songs topSongs={topSongs}/>
         </div>
       </div>

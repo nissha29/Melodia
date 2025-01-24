@@ -4,6 +4,7 @@ import getTrackDuration from "../../utils/getTrackDuration.js";
 
 export default async function addTrack(req, res) {
     try {
+        // console.log(req);
         if (!req.files || !req.files.track || !req.files.image) {
             return res.status(400).json({
                 success: false,

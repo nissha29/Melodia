@@ -1,19 +1,68 @@
-import React from 'react';
+import React, { useState } from 'react';
+import URL from '../../constants.js'
+import axios from 'axios';
 
 const AddSong = () => {
   const genres = [
-    'Bollywood', 'Classical', 'Devotional', 'Folk', 'Ghazal', 'Bhajan', 'Qawwali',
-    'Indie Pop', 'Sufi', 'Punjabi', 'Bhangra', 'Carnatic', 'Hindustani', 'Fusion',
-    'Regional Film Songs', 'Instrumental', 'Wedding Songs', 'Dance Numbers',
-    'Patriotic', 'Rabindra Sangeet'
+    'Bollywood', 'Classical', 'Marathi', 'Folk', 'Ghazal', 'Bhajan', 'Bhojpuri',
+    'Indie Pop', 'Punjabi', 'Hindustani', 'Fusion','Regional Songs', 'Instrumental', 'Wedding Songs', 'Dance Numbers',
+    'Patriotic',
   ];
+  const [formData, setFormData] = useState({
+    songTitle: '',
+    artistName: '',
+    genre: '',
+    track: '',
+    image: '',
+  });
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    console.log(e.target.type);
+    if(e.target.type === 'text' || e.target.type === 'select-one'){
+      setFormData((prev)=>{
+        return {
+          ...prev,
+          [e.target.name]: e.target.value,
+        }
+      })
+    }
+    else{
+      setFormData((prev)=>{
+        return {
+          ...prev,
+          [e.target.name]: e.target.files[0],
+        }
+      })
+    }
+  }
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
+    const data = new FormData();
+    data.append('track', formData.track); 
+    data.append('image', formData.image); 
+    data.append('songTitle', formData.songTitle);
+    data.append('artistName', formData.artistName);
+    data.append('genre', formData.genre);
+    
+    try{
+      await axios.post(
+        `${URL}/api/track`, 
+        data,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },  
+          withCredentials: true,
+        },
+      );
+    }catch(err){
+      console.log(err);
+    }
   };
 
   return (
-    <div className="w-full max-w-md bg-[#262a2e] shadow-sm shadow-primary-text rounded-lg p-6">
+    <div className="w-full max-w-md bg-[#0f1214] shadow-sm shadow-primary-text rounded-lg p-6">
       <div className="mb-6">
         <h2 className="text-xl font-bold text-white">Add New Song</h2>
       </div>
@@ -23,8 +72,10 @@ const AddSong = () => {
             Song Title
           </label>
           <input 
+            onChange={handleChange}
             type="text"
-            className="w-full px-3 py-2 text-white bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-white placeholder-gray-600"
+            name='songTitle'
+            className="w-full px-3 py-2 text-white bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-white placeholder-gray-600 border-opacity-25"
             placeholder='kabhi kabhi mere dil mein'
           />
         </div>
@@ -33,8 +84,10 @@ const AddSong = () => {
             Artist Name
           </label>
           <input 
+            onChange={handleChange}
             type="text"
-            className="w-full px-3 py-2 text-white bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-white placeholder-gray-600"
+            name='artistName'
+            className="w-full px-3 py-2 text-white bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-white placeholder-gray-600 border-opacity-25"
             placeholder='Lata Mangeshkar'
           />
         </div>
@@ -43,11 +96,13 @@ const AddSong = () => {
             Genre
           </label>
           <select 
-            className="w-full px-3 py-2 text-white bg-[#262a2e] border border-[#997095] rounded-md focus:outline-none focus:border-white"
+            onChange={handleChange}
+            className="w-full px-3 py-2 text-white bg-[#0f1214] border border-[#997095] rounded-md focus:outline-none focus:border-white border-opacity-25 scrollbar-thin scrollbar-thumb-white scrollbar-track-transparent"
+            name='genre'
           >
             <option value="">Select genre</option>
             {genres.map((genre) => (
-              <option key={genre} value={genre} className='bg-[#262a2e]'>
+              <option key={genre} value={genre} className='bg-[#0f1214]'>
                 {genre}
               </option>
             ))}
@@ -58,9 +113,11 @@ const AddSong = () => {
             Track File
           </label>
           <input 
+            onChange={handleChange}
             type="file"
+            name='track'
             accept="audio/*"
-            className="w-full px-3 py-2 text-white border border-[#997095] rounded-md focus:border-white focus:outline-none"
+            className="w-full px-3 py-2 text-white border border-[#997095] rounded-md focus:border-white focus:outline-none border-opacity-25"
           />
         </div>
         <div>
@@ -68,9 +125,11 @@ const AddSong = () => {
             Cover Image
           </label>
           <input 
+            onChange={handleChange}
             type="file"
+            name='image'
             accept="image/*"
-            className="w-full px-3 py-2 text-white border border-[#997095] rounded-md focus:outline-none focus:border-white"
+            className="w-full px-3 py-2 text-white border border-[#997095] rounded-md focus:outline-none focus:border-white border-opacity-25"
           />
         </div>
         <button 

@@ -15,6 +15,12 @@ const storage = new CloudinaryStorage({
   params: async (req, file) => {
     
     const isAudio = file.fieldname === 'track';
+    console.log({
+      folder: isAudio ? 'uploads/tracks' : 'uploads/images',
+      resource_type: isAudio ? 'video' : 'image',
+      allowed_formats: isAudio ? ['mp3', 'wav', 'mpeg', 'x-wav', 'm4a', 'aac', 'mpeg3'] : ['jpg', 'jpeg', 'png', 'webp'],
+      public_id: `${file.fieldname}-${Date.now()}-${Math.round(Math.random() * 1E9)}`,
+    });    
     
     return {
       folder: isAudio ? 'uploads/tracks' : 'uploads/images',

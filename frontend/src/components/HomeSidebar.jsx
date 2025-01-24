@@ -12,24 +12,25 @@ function HomeSidebar() {
         <div className='flex h-screen relative font-playwrite'>
             {/* Menu Icon */}
             <div className={`
-                px-6 py-9 cursor-pointer z-50
+                px-3 sm:px-6 py-9 cursor-pointer z-50
                 absolute
                 lg:block
             `}>
                 {isOpen ? 
                     <X onClick={handleToggle} className='text-white'/> : 
-                    <Menu onClick={handleToggle} className='text-white'/>
+                    <Menu onClick={handleToggle} className='text-white sm:size-7 size-6'/>
                 }
             </div>
 
             {/* Sidebar for all screen sizes */}
             <div className={`
-                ${isOpen ? 'lg:w-56 xl:w-64 w-60' : 'w-0'}
+                ${isOpen ? 'w-64' : 'w-0'}
                 transition-all duration-300 
                 overflow-hidden 
                 bg-[#0f1214]
-                absolute lg:static 
+                absolute
                 h-full z-10
+                border border-gray-800
             `}>
                 <div className={`
                     p-6 pt-24 flex flex-col gap-6 

@@ -40,14 +40,17 @@ export default async function signin(req, res) {
 
     const token = generateJWT(user._id, "15d");
 
-    const cookieOptions = {
-      maxAge: 15 * 24 * 60 * 60 * 1000,
+    let cookieOptions = {
+      maxAge: 30 * 24 * 60 * 60 * 1000,
       sameSite: 'none',
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      domain: process.env.NODE_ENV === 'production' ? '' : 'localhost',
       path: '/',
-    };
+  };
+
+  if (process.env.NODE_ENV === 'production') {
+      cookieOptions.domain = '';
+  }
 
     return res
     .cookie('token', token, cookieOptions)

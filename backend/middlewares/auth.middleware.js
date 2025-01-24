@@ -1,11 +1,15 @@
 import verifyJWT from "../utils/verifyJWT.utils.js"
+import jwt from 'jsonwebtoken';
 
 export default function auth(req,res,next){
     try{
         const token = req.cookies.token;
         
         if(! token){
-            console.log(`No token provided`);
+            return res.status(401).json({
+                success: false,
+                message: `No token provided`
+            })
         }
 
         const response = verifyJWT(token, process.env.JWT_SECRET);
