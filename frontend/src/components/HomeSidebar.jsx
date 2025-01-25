@@ -2,15 +2,14 @@ import React, { useState } from 'react';
 import { Home, Library, Plus, Menu, X } from 'lucide-react';
 
 function HomeSidebar() {
-    const [isOpen, setIsOpen] = useState(true);
+    const [isOpen, setIsOpen] = useState(false);
 
     const handleToggle = () => {
         setIsOpen(prev => !prev);
     };
 
     return (
-        <div className='flex h-screen relative font-playwrite'>
-            {/* Menu Icon */}
+        <div className='flex h-full relative font-playwrite bg-[#0f1214]'>
             <div className={`
                 px-3 sm:px-6 py-9 cursor-pointer z-50
                 absolute
@@ -22,7 +21,6 @@ function HomeSidebar() {
                 }
             </div>
 
-            {/* Sidebar for all screen sizes */}
             <div className={`
                 ${isOpen ? 'w-64' : 'w-0'}
                 transition-all duration-300 
