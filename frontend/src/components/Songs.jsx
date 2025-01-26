@@ -5,11 +5,13 @@ import URL from '../../constants.js'
 import { currentPlayingSong } from '../store/atoms/currentPlayingSong.js'
 import { useRecoilValue } from 'recoil'
 import { useTogglePlayPause } from '../hooks/togglePlayPause.js'
+import { useHandleAudio } from '../hooks/handleAudio'
 
 export default function Songs() {
   const [songs, setSongs] = useState([]);
   const togglePlayPause = useTogglePlayPause();
-  const currentPlaying = useRecoilValue(currentPlayingSong)
+  const currentPlaying = useRecoilValue(currentPlayingSong);
+  const { handlePlay, handlePause } = useHandleAudio()
 
   async function getSongs(){
     try {
@@ -49,23 +51,29 @@ export default function Songs() {
                     <div className="font-semibold truncate">{song.songTitle}</div>
                     <div className="text-sm text-primary-text truncate">{song.artistName}</div>
                   </div>
-                  <div className='flex items-center xl:gap-14 gap-2'>
+                  <div className='flex items-center xl:gap-14 sm:gap-10 gap-3'>
                     <div className="text-sm text-primary-text mt-1 hidden md:block truncate max-w-[100px]">{song.genre}</div>
                     { currentPlaying.isPlaying && currentPlaying.song._id === song._id
                       ? 
                       <Pause 
-                        className='text-primary-text hover:cursor-pointer'
-                        onClick={() => togglePlayPause(song)}
+                        className='text-primary-text hover:cursor-pointer' strokeWidth={1}
+                        onClick={() => {
+                          handlePause();
+                          togglePlayPause(song)
+                        }}
                       />
                       : 
                       <Play 
-                        className='text-primary-text hover:cursor-pointer'
-                        onClick={() => togglePlayPause(song)}
+                        className='text-primary-text hover:cursor-pointer' strokeWidth={1}
+                        onClick={() => {
+                          handlePlay();
+                          togglePlayPause(song)
+                        }}
                       />
                     }
-                    <Heart size={20} className="text-primary-text mt-1 hover:cursor-pointer hidden md:block" />
+                    <Heart size={24} className="text-primary-text mt-1 hover:cursor-pointer hidden md:block" strokeWidth={1}/>
                     <button className="text-sm text-white bg-secondary-bg rounded-2xl px-3 py-1 hidden md:block">Favorite</button>
-                    <Ellipsis size={28} className="text-primary-text hover:cursor-pointer" />
+                    <Ellipsis size={28} className="text-primary-text hover:cursor-pointer" strokeWidth={1}/>
                   </div>
                 </div>
                 <hr className='opacity-5' />
