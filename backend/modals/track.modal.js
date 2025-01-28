@@ -25,7 +25,7 @@ const trackSchema = new mongoose.Schema({
         required: true,
         validate: {
             validator: function(v) {
-                return /^https?:\/\/res\.cloudinary\.com\/.*\/video\/upload\/.*\.(mp3|wav|mpeg|x-wav|m4a|aac|mpeg3)$/i.test(v);
+                return /^https?:\/\/res\.cloudinary\.com\/.*\/video\/upload\/.*\.(mp3|wav|mpeg|x-wav|m4a|aac|mpeg3|webP)$/i.test(v);
             },
             message: 'Invalid Cloudinary track URL'
         }
@@ -44,19 +44,19 @@ const trackSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 0,
-        max: 1200,
+        max: 3600,
         validate: {
             validator: function(v) {
-                return v <= 1200;
+                return v <= 3600;
             },
-            message: 'Track duration cannot exceed 20 minutes'
+            message: 'Track duration cannot exceed 60 minutes'
         }
     },
     trackSize: {
         type: Number,
         required: true,
         min: 0,
-        max: 20 * 1024 * 1024
+        max: 60 * 1024 * 1024
     },
     imageSize: {
         type: Number,

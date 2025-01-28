@@ -15,14 +15,13 @@ export default async function removeInteraction(){
         if(!trackId || !type){
             return res.status(400).json({
                 success: false,
-                message: `Both trackId and type are required`
+                message: `TrackId is required`
             })
         }
 
         const doesInteractionExists = await trackInteractionModal.findOne({
             userId,
             trackId,
-            type
         })
 
         if(!doesInteractionExists){
@@ -34,14 +33,9 @@ export default async function removeInteraction(){
 
         await doesInteractionExists.deleteOne();
 
-        const messages = {
-            like: 'Removed from Liked tracks',
-            favorite: 'Removed from favorite tracks',
-        };
-
         return res.status(200).json({
             success: true,
-            message: messages[type]
+            message: "Removed from liked songs"
         });
 
     }catch(err){

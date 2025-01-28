@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import URL from '../../constants.js'
 import axios from 'axios';
+import LoadingButton from './LoadingButton.jsx';
 
-const AddSong = () => {
+const AddSong = ({ setIsOpen }) => {
+
   const genres = [
     'Bollywood', 'Classical', 'Marathi', 'Folk', 'Ghazal', 'Bhajan', 'Bhojpuri',
     'Indie Pop', 'Punjabi', 'Hindustani', 'Fusion','Regional Songs', 'Instrumental', 'Wedding Songs', 'Dance Numbers',
@@ -15,9 +17,9 @@ const AddSong = () => {
     track: '',
     image: '',
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
-    console.log(e.target.type);
     if(e.target.type === 'text' || e.target.type === 'select-one'){
       setFormData((prev)=>{
         return {
@@ -38,13 +40,13 @@ const AddSong = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    setIsLoading(true);
     const data = new FormData();
     data.append('track', formData.track); 
     data.append('image', formData.image); 
     data.append('songTitle', formData.songTitle);
     data.append('artistName', formData.artistName);
     data.append('genre', formData.genre);
-    
     try{
       await axios.post(
         `${URL}/api/track`, 
@@ -56,6 +58,15 @@ const AddSong = () => {
           withCredentials: true,
         },
       );
+      setIsLoading(false);
+      setIsOpen(false);
+      setFormData({
+        songTitle: '',
+        artistName: '',
+        genre: '',
+        track: '',
+        image: '',
+      });
     }catch(err){
       console.log(err);
     }
@@ -77,6 +88,7 @@ const AddSong = () => {
             name='songTitle'
             className="w-full px-3 py-2 text-white bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-white placeholder-gray-600 border-opacity-25"
             placeholder='kabhi kabhi mere dil mein'
+            required
           />
         </div>
         <div>
@@ -89,6 +101,7 @@ const AddSong = () => {
             name='artistName'
             className="w-full px-3 py-2 text-white bg-transparent border border-[#997095] rounded-md focus:outline-none focus:border-white placeholder-gray-600 border-opacity-25"
             placeholder='Lata Mangeshkar'
+            required
           />
         </div>
         <div>
@@ -99,6 +112,7 @@ const AddSong = () => {
             onChange={handleChange}
             className="w-full px-3 py-2 text-white bg-[#0f1214] border border-[#997095] rounded-md focus:outline-none focus:border-white border-opacity-25 scrollbar-thin scrollbar-thumb-white scrollbar-track-transparent"
             name='genre'
+            required
           >
             <option value="">Select genre</option>
             {genres.map((genre) => (
@@ -118,6 +132,7 @@ const AddSong = () => {
             name='track'
             accept="audio/*"
             className="w-full px-3 py-2 text-white border border-[#997095] rounded-md focus:border-white focus:outline-none border-opacity-25"
+            required
           />
         </div>
         <div>
@@ -130,14 +145,18 @@ const AddSong = () => {
             name='image'
             accept="image/*"
             className="w-full px-3 py-2 text-white border border-[#997095] rounded-md focus:outline-none focus:border-white border-opacity-25"
+            required
           />
         </div>
-        <button 
+        {/* <button 
           type="submit"
           className="w-full px-4 py-2 bg-[#6B4C68] text-white rounded-md hover:bg-[#997095] transition-colors"
         >
-          Add Song
-        </button>
+          {isLoading ? "Loading....." : "Add Song"}
+        </button> */}
+        <LoadingButton isLoading={isLoading}>
+            Add Song
+        </LoadingButton>
       </form>
     </div>
   );

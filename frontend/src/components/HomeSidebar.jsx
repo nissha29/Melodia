@@ -1,8 +1,17 @@
 import React, { useState } from 'react';
-import { Home, Library, Plus, Menu, X } from 'lucide-react';
+import { Home, Library, Menu, X, Music, CirclePlay, SkipBack, SkipForward, Pause } from 'lucide-react';
+import { currentPlayingSong } from '../store/atoms/currentPlayingSong';
+import { useRecoilValue } from 'recoil';
+import { useSkipControls } from '../hooks/useSkipControls';
+import { useHandleAudio } from '../hooks/useHandleAudio';
+import { useTogglePlayPause } from '../hooks/useTogglePlayPause';
 
 function HomeSidebar() {
     const [isOpen, setIsOpen] = useState(false);
+    const currentPlaying = useRecoilValue(currentPlayingSong);
+    const { handleSkip } = useSkipControls();
+    const { handlePause, handlePlay} = useHandleAudio();
+    const togglePlayPause = useTogglePlayPause();
 
     const handleToggle = () => {
         setIsOpen(prev => !prev);
@@ -44,12 +53,52 @@ function HomeSidebar() {
                             <Library size={24} className='text-white'/>
                             <span className='text-primary-text cursor-pointer'>Library</span>
                         </div>
-                        <div className="pl-8 space-y-2 text-[#997095] flex flex-col gap-4">
+                        <div className="pl-8 space-y-2 text-[#997095] flex flex-col gap-2">
                             <div className='cursor-pointer'>Discover</div>
                             <div className='cursor-pointer'>Genre</div>
-                            <div className='cursor-pointer'>Songs</div>
-                            <div className='cursor-pointer'>Liked Songs</div>
-                            <div className='cursor-pointer'>Favorites</div>
+                        </div>
+                    </div>
+                </div>
+                <div className={`
+                    p-6 flex flex-col gap-6 
+                    ${isOpen ? 'opacity-100' : 'opacity-0'}
+                    transition-opacity duration-300 text-white
+                `}>
+                    <div className='pl-2 flex gap-3'>
+                        <Music className='text-primary-text animate-spin' size={28}/>
+                        <div>Recently Playing</div>
+                    </div>
+                    <div className='flex flex-col gap-1 justify-center items-center'>
+                        <img src={currentPlaying.song.imageUrl} alt="Cover Image" className='w-52 h-52' />
+                        <div>{currentPlaying.song.songTitle}</div>
+                        <div className='text-primary-text text-sm'>{currentPlaying.song.artistName}</div>
+                        <div className='pt-3 flex gap-2 sm:px-8'>
+                            <SkipBack 
+                                className='hover:text-primary-text hidden md:block hover:cursor-pointer' strokeWidth={1} 
+                                onClick={()=>handleSkip('backward')}
+                            />
+                            {currentPlaying.isPlaying
+                                ?
+                                <Pause
+                                    className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1}
+                                    onClick={() => {
+                                        handlePause();
+                                        togglePlayPause(currentPlaying.song)
+                                    }}
+                                />
+                                :
+                                <CirclePlay
+                                    className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1}
+                                    onClick={() => {
+                                        handlePlay();
+                                        togglePlayPause(currentPlaying.song)
+                                    }}
+                                />
+                            }
+                            <SkipForward 
+                                className='hover:text-primary-text hidden md:block hover:cursor-pointer' strokeWidth={1} 
+                                onClick={()=>handleSkip('forward')}
+                            />
                         </div>
                     </div>
                 </div>

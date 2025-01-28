@@ -1,15 +1,17 @@
 import React from 'react'
 import { useRecoilValue } from 'recoil'
 import { currentPlayingSong } from '../store/atoms/currentPlayingSong'
-import { Pause, Play, SkipBack, SkipForward } from 'lucide-react'
-import { useTogglePlayPause } from '../hooks/togglePlayPause'
-import { Heart, Maximize2, Volume2, EllipsisVertical } from 'lucide-react'
+import { CirclePlus, Pause, CirclePlay, SkipBack, SkipForward } from 'lucide-react'
+import { useTogglePlayPause } from '../hooks/useTogglePlayPause'
+import { Maximize2, Volume2 } from 'lucide-react'
 import formatSecondsToMinutesSeconds from '../utils/formatSecondsToMinutesSeconds'
-import { useHandleAudio } from '../hooks/handleAudio'
+import { useHandleAudio } from '../hooks/useHandleAudio'
+import { useSkipControls } from '../hooks/useSkipControls'
 
 export default function PlaybackControls() {
     const currentPlaying = useRecoilValue(currentPlayingSong);
     const togglePlayPause = useTogglePlayPause();
+    const { handleSkip } = useSkipControls();
     const { audioRef, currentTime, handlePlay, handlePause, handleTimeUpdate, handleSeek, handleLoadedMetadata, handleVolumeChange } = useHandleAudio();
 
     return (
@@ -30,26 +32,33 @@ export default function PlaybackControls() {
                         </div>
                     </div>
                     <div className='lg:flex gap-3 py-5 hidden'>
-                        <SkipBack className='hover:text-primary-text' strokeWidth={1} />
+                        <SkipBack 
+                            className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1} 
+                            onClick={()=>handleSkip('backward')}
+                        />
                         {currentPlaying.isPlaying
                             ?
                             <Pause
-                                className='hover:text-primary-text' strokeWidth={1}
+                                className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1}
                                 onClick={() => {
                                     handlePause();
                                     togglePlayPause(currentPlaying.song)
                                 }}
                             />
                             :
-                            <Play
-                                className='hover:text-primary-text' strokeWidth={1}
+                            <CirclePlay
+                                className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1}
+                                size={24}
                                 onClick={() => {
                                     handlePlay();
                                     togglePlayPause(currentPlaying.song)
                                 }}
                             />
                         }
-                        <SkipForward className='hover:text-primary-text' strokeWidth={1} />
+                        <SkipForward 
+                            className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1} 
+                            onClick={()=>handleSkip('forward')}
+                        />
                     </div>
                     <div className='hidden lg:flex py-8 items-center'>
                         <div className='text-[0.65rem] font-thin font-playwrite pr-2 mt-1'>{formatSecondsToMinutesSeconds(currentTime)}</div>
@@ -72,35 +81,41 @@ export default function PlaybackControls() {
                         />
                         <div className='text-[0.65rem] font-thin font-playwrite pl-2 mt-1'>{formatSecondsToMinutesSeconds(currentPlaying.song.duration)}</div>
                     </div>
-                    <div className=' flex gap-2 sm:gap-4 py-5'>
+                    <div className=' flex gap-3 sm:gap-4 py-5'>
                         <div className='flex gap-2 lg:hidden sm:px-8'>
-                            <SkipBack className='hover:text-primary-text hidden md:block' strokeWidth={1} />
+                            <SkipBack 
+                                className='hover:text-primary-text hidden md:block hover:cursor-pointer' strokeWidth={1} 
+                                onClick={()=>handleSkip('backward')}
+                            />
                             {currentPlaying.isPlaying
                                 ?
                                 <Pause
-                                    className='hover:text-primary-text' strokeWidth={1}
+                                    className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1}
                                     onClick={() => {
                                         handlePause();
                                         togglePlayPause(currentPlaying.song)
                                     }}
                                 />
                                 :
-                                <Play
-                                    className='hover:text-primary-text' strokeWidth={1}
+                                <CirclePlay
+                                    className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1}
+                                    size={24}
                                     onClick={() => {
                                         handlePlay();
                                         togglePlayPause(currentPlaying.song)
                                     }}
                                 />
                             }
-                            <SkipForward className='hover:text-primary-text hidden md:block' strokeWidth={1} />
+                            <SkipForward 
+                                className='hover:text-primary-text hidden md:block hover:cursor-pointer' strokeWidth={1} 
+                                onClick={()=>handleSkip('forward')}
+                            />
                         </div>
-                        <EllipsisVertical className='block md:hidden hover:text-primary-text' strokeWidth={1} />
-                        <Heart className='hidden md:block hover:text-primary-text' strokeWidth={1} />
-                        <div className='hidden md:flex gap-1.5 hover:cursor-pointer hover:text-primary-text'>
+                        <CirclePlus className='hidden sm:block hover:text-primary-text hover:cursor-pointer' strokeWidth={1} />
+                        <div className='hidden md:flex gap-1.5 hover:text-primary-text'>
                             <Volume2
                                 strokeWidth={1}
-                                className='hover:text-primary-text hover:cursor-pointer'
+                                className='hover:text-primary-text'
                             />
                             <div>
                                 <input
@@ -110,11 +125,11 @@ export default function PlaybackControls() {
                                     defaultValue="1"
                                     step="0.1"
                                     onChange={handleVolumeChange}
-                                    className="w-24 h-1 bg-transparent accent-primary-text rounded-full transform -translate-y-1.5"
+                                    className="w-24 h-1 bg-transparent accent-primary-text rounded-full transform -translate-y-1.5 hover:cursor-pointer"
                                 />
                             </div>
                         </div>
-                        <Maximize2 className='hidden md:block hover:text-primary-text hover:cursor-pointer' strokeWidth={1} />
+                        <Maximize2 className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1} />
                     </div>
                 </div>
             </div>

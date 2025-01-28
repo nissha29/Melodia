@@ -18,7 +18,7 @@ const storage = new CloudinaryStorage({
     console.log({
       folder: isAudio ? 'uploads/tracks' : 'uploads/images',
       resource_type: isAudio ? 'video' : 'image',
-      allowed_formats: isAudio ? ['mp3', 'wav', 'mpeg', 'x-wav', 'm4a', 'aac', 'mpeg3'] : ['jpg', 'jpeg', 'png', 'webp'],
+      allowed_formats: isAudio ? ['mp3', 'wav', 'mpeg', 'x-wav', 'm4a', 'aac', 'mpeg3', 'webP'] : ['jpg', 'jpeg', 'png', 'webp'],
       public_id: `${file.fieldname}-${Date.now()}-${Math.round(Math.random() * 1E9)}`,
     });    
     
@@ -42,11 +42,11 @@ const fileFilter = (req, file, cb) => {
     }
   } else if (file.fieldname === 'image') {
     
-    const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/jpg', ];
     if (allowedImageTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error('Invalid image file type. Only JPEG, PNG, and GIF files are allowed.'), false);
+      cb(new Error('Invalid image file type. Only JPEG, PNG, and GIF, webP, jpg files are allowed.'), false);
     }
   } else {
     cb(new Error('Invalid field name'), false);
@@ -56,7 +56,7 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   storage,
   fileFilter,
-  limits: { fileSize: 20 * 1024 * 1024 } 
+  limits: { fileSize: 60 * 1024 * 1024 } 
 });
 
 export default upload;

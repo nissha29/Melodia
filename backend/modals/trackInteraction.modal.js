@@ -11,11 +11,6 @@ const interactionSchema = new mongoose.Schema({
         ref: 'Track',
         required: true,
     },
-    type: {
-        type: String,
-        enum: ['like', 'favorite'],
-        required: true,
-    }
 },{
     timestamps: true,
 })

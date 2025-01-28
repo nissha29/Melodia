@@ -13,7 +13,6 @@ export default async function getUserLikedTracks(req,res){
 
         const likedTracks = await trackInteractionModal.find({
             userId,
-            type: 'like'
         })
         .populate({
             path: 'trackId',

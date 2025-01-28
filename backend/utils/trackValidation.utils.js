@@ -36,7 +36,7 @@ const trackValidation = z.object({
                 message: 'Unsupported audio format. Use MP3, WAV, M4A, or AAC'
             }),
         size: z.number()
-            .max(20 * 1024 * 1024, "File size must not exceed 20MB"),
+            .max(60 * 1024 * 1024, "File size must not exceed 60MB"),
     }),
     
     image: z.object({

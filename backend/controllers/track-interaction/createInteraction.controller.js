@@ -3,7 +3,7 @@ import trackInteractionModal from "../../modals/trackInteraction.modal.js";
 export default async function createInteraction(){
     try{
         const userId = req.userId;
-        const { trackId, type } = req.params;
+        const { trackId } = req.params;
 
         if (!userId) {
             return res.status(401).json({
@@ -12,42 +12,35 @@ export default async function createInteraction(){
             });
         }
         
-        if (!trackId || !type) {
+        if (!trackId) {
             return res.status(400).json({
                 success: false,
-                message: 'TrackId and type are required'
+                message: 'TrackId is required'
             });
         }
 
         const existingInteraction = await trackInteractionModal.findOne({
             userId,
             trackId,
-            type
         });
 
         if (existingInteraction) {
             return res.status(400).json({
                 success: false,
-                message: `Track already ${type === 'like' ? 'liked' : 'favorited'}`
+                message: `Track already liked`
             });
         }
 
         const interaction = new trackInteractionModal({
             userId,
             trackId,
-            type
         })
 
         await interaction.save();
 
-        const messages = {
-            like: 'Added to Liked tracks',
-            favorite: 'Added to favorite tracks',
-        };
-
         return res.status(200).json({
             success: true,
-            message: messages[type],
+            message: "Added to liked songs",
             data: interaction,
         })
     }catch(err){
