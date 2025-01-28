@@ -9,7 +9,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "primary-bg": "#2a2e33",
+        "primary-bg": "#171a1d",
         "secondary-bg": "#6B4C68",
         "primary-text": "#997095",
         "secondary-text": "#6B4C68"
@@ -26,7 +26,7 @@ module.exports = {
       },
       keyframes: {
         floating: {
-          '0%, 100%': { transform: 'translateX(40px)' },
+          '0%, 100%': { transform: 'translateX(35px)' },
           '50%': { transform: 'translateY(5px)' },
         }
       },
