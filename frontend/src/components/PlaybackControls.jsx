@@ -1,28 +1,22 @@
 import React from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { currentPlayingSong } from '../store/atoms/currentPlayingSong'
 import { CirclePlus, Pause, CirclePlay, SkipBack, SkipForward } from 'lucide-react'
 import { useTogglePlayPause } from '../hooks/useTogglePlayPause'
 import { Maximize2, Volume2 } from 'lucide-react'
 import formatSecondsToMinutesSeconds from '../utils/formatSecondsToMinutesSeconds'
-import { useHandleAudio } from '../hooks/useHandleAudio'
 import { useSkipControls } from '../hooks/useSkipControls'
+import { FullScreen } from '../store/atoms/FullScreen'
 
-export default function PlaybackControls() {
+export default function PlaybackControls({ handlePlay, handlePause, handleSeek, handleVolumeChange, currentTime }) {
     const currentPlaying = useRecoilValue(currentPlayingSong);
     const togglePlayPause = useTogglePlayPause();
     const { handleSkip } = useSkipControls();
-    const { audioRef, currentTime, handlePlay, handlePause, handleTimeUpdate, handleSeek, handleLoadedMetadata, handleVolumeChange } = useHandleAudio();
-
+    const setIsFullScreen = useSetRecoilState(FullScreen);
+    
     return (
         <>
             <div className='relative'>
-                <audio
-                    ref={audioRef}
-                    src={currentPlaying.song.trackUrl}
-                    onTimeUpdate={handleTimeUpdate}
-                    onLoadedMetadata={handleLoadedMetadata}
-                />
                 <div className='absolute bottom-0 w-full bg-[#0f1214] h-24 flex justify-between px-5 sm:px-10 lg:px-5 py-5'>
                     <div className='flex gap-3'>
                         <img src={currentPlaying.song.imageUrl} alt="cover image" className="w-14 h-14 rounded-md flex-shrink-0" />
@@ -129,7 +123,13 @@ export default function PlaybackControls() {
                                 />
                             </div>
                         </div>
-                        <Maximize2 className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1} />
+                        <Maximize2 
+                            className='hover:text-primary-text hover:cursor-pointer' 
+                            strokeWidth={1} 
+                            onClick={()=>{
+                                setIsFullScreen(true)
+                            }}
+                        />
                     </div>
                 </div>
             </div>

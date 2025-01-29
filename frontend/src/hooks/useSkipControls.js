@@ -26,5 +26,5 @@ export function useSkipControls(){
             });
         }   
     }
-    return { handleSkip};
+    return { handleSkip };
 }

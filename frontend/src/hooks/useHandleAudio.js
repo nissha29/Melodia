@@ -42,6 +42,7 @@ export function useHandleAudio() {
     const handleSeek = (time) => {
         if (audioRef.current) {
             audioRef.current.currentTime = time;
+            setCurrentTime(time);
         }
     };
 

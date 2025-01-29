@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Heart, Ellipsis, Play, Pause, CirclePlus, CirclePlay } from 'lucide-react'
+import { Heart, Ellipsis, Pause, CirclePlus, CirclePlay, Music2 } from 'lucide-react'
 import { currentPlayingSong } from '../store/atoms/currentPlayingSong.js'
 import { useRecoilValue } from 'recoil'
 import { useTogglePlayPause } from '../hooks/useTogglePlayPause.js'
@@ -41,7 +41,10 @@ export default function Songs() {
                     <div className="text-sm text-primary-text truncate pb-1">{song.artistName}</div>
                   </div>
                   <div className='flex items-center xl:gap-14 sm:gap-10 gap-3'>
-                    <div title="Genre" className="text-sm text-primary-text mt-1 pb-1 hidden md:block truncate max-w-[100px]">{song.genre}</div>
+                    <div className='gap-2 hidden md:flex truncate max-w-[100px]'>
+                      <Music2 className='text-[#812e79]' size={20} />
+                      <div className='text-sm text-gray-400'>{song.genre}</div>
+                    </div>
                     {currentPlaying.isPlaying && currentPlaying.song._id === song._id
                       ?
                       <div title='Pause'>
