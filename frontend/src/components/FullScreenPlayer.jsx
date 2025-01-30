@@ -2,16 +2,23 @@ import React from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { currentPlayingSong } from '../store/atoms/currentPlayingSong'
 import { Music, SkipBack, Pause, CirclePlay, SkipForward, CirclePlus, Volume2, Minimize2, Music2 } from 'lucide-react'
+import { AiFillPlusCircle } from 'react-icons/ai'
 import formatSecondsToMinutesSeconds from '../utils/formatSecondsToMinutesSeconds'
 import { useTogglePlayPause } from '../hooks/useTogglePlayPause'
 import { useSkipControls } from '../hooks/useSkipControls'
 import { FullScreen } from '../store/atoms/FullScreen'
+import { likeState } from '../store/atoms/likeState'
+import { useHandleCreateInteraction } from '../hooks/useHandleCreateInteraction'
+import { useHandleRemoveInteraction } from '../hooks/useHandleRemoveInteraction'
 
 export default function FullScreenPlayer({ handlePlay, handlePause, handleSeek, handleVolumeChange, currentTime }) {
   const currentPlaying = useRecoilValue(currentPlayingSong);
   const togglePlayPause = useTogglePlayPause();
   const { handleSkip } = useSkipControls();
   const setIsFullScreen = useSetRecoilState(FullScreen);
+  const liked = useRecoilValue(likeState);
+  const { createInteraction } = useHandleCreateInteraction();
+  const { removeInteraction } = useHandleRemoveInteraction();
 
   return (
     <div className={`relative bg-[#0f1214] w-screen h-screen font-playwrite flex flex-col gap-y-2 justify-center items-center px-10 overflow-y-scroll overflow-x-hidden scrollbar-none`}>
@@ -82,7 +89,20 @@ export default function FullScreenPlayer({ handlePlay, handlePause, handleSeek, 
             <div className='text-sm font-thin font-playwrite pl-2 mt-1'>{formatSecondsToMinutesSeconds(currentPlaying.song.duration)}</div>
           </div>
           <div className='flex justify-between px-5'>
-            <CirclePlus strokeWidth={1} className='hover:text-primary-text hover:cursor-pointer size-8' />
+            {liked.includes(currentPlaying.song._id)
+              ?
+              <AiFillPlusCircle
+                onClick={() => removeInteraction(currentPlaying.song._id)}
+                className='text-primary-text hover:cursor-pointer' strokeWidth={1}
+                size={28}
+              />
+              :
+              <CirclePlus
+                onClick={() => createInteraction(currentPlaying.song._id)}
+                className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1}
+                size={28}
+              />
+            }
             <div className='flex gap-3 justify-center items-center'>
               <div className='flex gap-1.5 hover:text-primary-text'>
                 <Volume2

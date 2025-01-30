@@ -16,7 +16,7 @@ export default async function getUserLikedTracks(req,res){
         })
         .populate({
             path: 'trackId',
-            select: 'songTitle artistName trackUrl imageUrl duration',
+            select: 'songTitle artistName trackUrl imageUrl duration genre',
         })
         .sort({ 
             createdAt: -1 
@@ -26,9 +26,10 @@ export default async function getUserLikedTracks(req,res){
             .filter(interaction => interaction.trackId)
             .map(interaction => ({
                 id: interaction.trackId._id,
-                title: interaction.trackId.songTitle,
-                artist: interaction.trackId.artistName,
+                songTitle: interaction.trackId.songTitle,
+                artistName: interaction.trackId.artistName,
                 duration: interaction.trackId.duration,
+                genre: interaction.trackId.genre,
                 trackUrl: interaction.trackId.trackUrl,
                 imageUrl: interaction.trackId.imageUrl,
                 interactionId: interaction._id,

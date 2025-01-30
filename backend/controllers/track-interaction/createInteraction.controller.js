@@ -1,6 +1,6 @@
 import trackInteractionModal from "../../modals/trackInteraction.modal.js";
 
-export default async function createInteraction(){
+export default async function createInteraction(req,res){
     try{
         const userId = req.userId;
         const { trackId } = req.params;

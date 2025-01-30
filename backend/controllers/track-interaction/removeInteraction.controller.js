@@ -1,9 +1,9 @@
 import trackInteractionModal from "../../modals/trackInteraction.modal.js";
 
-export default async function removeInteraction(){
+export default async function removeInteraction(req,res){
     try{
         const userId =  req.userId;
-        const { trackId, type } = req.params;
+        const { trackId } = req.params;
 
         if (!userId) {
             return res.status(401).json({
@@ -12,7 +12,7 @@ export default async function removeInteraction(){
             });
         }
 
-        if(!trackId || !type){
+        if(!trackId){
             return res.status(400).json({
                 success: false,
                 message: `TrackId is required`

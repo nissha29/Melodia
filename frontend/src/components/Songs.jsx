@@ -1,18 +1,27 @@
 import React, { useEffect } from 'react'
-import { Heart, Ellipsis, Pause, CirclePlus, CirclePlay, Music2 } from 'lucide-react'
+import { Pause, CirclePlus, CirclePlay, Music2 } from 'lucide-react'
+import { AiFillPlusCircle } from "react-icons/ai";
 import { currentPlayingSong } from '../store/atoms/currentPlayingSong.js'
-import { useRecoilValue } from 'recoil'
+import { useSetRecoilState, useRecoilValue } from 'recoil'
 import { useTogglePlayPause } from '../hooks/useTogglePlayPause.js'
 import { useHandleAudio } from '../hooks/useHandleAudio.js'
 import { songsAtom } from '../store/atoms/Songs.js'
 import useSongs from '../hooks/useSongs.js'
+import { likeState } from '../store/atoms/likeState.js'
+import { useHandleCreateInteraction } from '../hooks/useHandleCreateInteraction.js'
+import { useHandleRemoveInteraction } from '../hooks/useHandleRemoveInteraction.js'
+import { FullScreen } from '../store/atoms/FullScreen.js';
 
 export default function Songs() {
   const togglePlayPause = useTogglePlayPause();
   const currentPlaying = useRecoilValue(currentPlayingSong);
   const { handlePlay, handlePause } = useHandleAudio()
   const songs = useRecoilValue(songsAtom);
+  const liked = useRecoilValue(likeState);
+  const setIsFullScreen = useSetRecoilState(FullScreen);
   const { fetchSongs } = useSongs();
+  const { createInteraction } = useHandleCreateInteraction();
+  const { removeInteraction } = useHandleRemoveInteraction();
 
   useEffect(() => {
     fetchSongs();
@@ -20,7 +29,7 @@ export default function Songs() {
       fetchSongs();
     }, 2000);
     return () => clearInterval(songs);
-  }, [])
+  }, []);
 
   return (
     <div className="h-full">
@@ -29,20 +38,21 @@ export default function Songs() {
         <div className="h-[calc(100%-150px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-secondary-bg scrollbar-track-transparent">
           <div className="space-y-1">
             {songs.map((song) => (
-              <div key={song._id} className="w-full">
+              <div key={song._id} className="w-full hover:cursor-pointer">
                 <div className="flex items-center gap-3 p-2 sm:p-3 hover:bg-[#9970952f] rounded-lg transition-colors">
                   <img
                     src={song.imageUrl}
                     alt={song.songTitle}
                     className="w-10 h-10 rounded-md flex-shrink-0"
+                    onClick={()=>setIsFullScreen(true)}
                   />
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold truncate">{song.songTitle}</div>
                     <div className="text-sm text-primary-text truncate pb-1">{song.artistName}</div>
                   </div>
-                  <div className='flex items-center xl:gap-14 sm:gap-10 gap-3'>
-                    <div className='gap-2 hidden md:flex truncate max-w-[100px]'>
-                      <Music2 className='text-[#812e79]' size={20} />
+                  <div className='flex items-center xl:gap-14 sm:gap-10'>
+                    <div className='gap-0 hidden md:flex truncate max-w-[100px]'>
+                      <Music2 className='text-[#812e79]' size={16} />
                       <div className='text-sm text-gray-400'>{song.genre}</div>
                     </div>
                     {currentPlaying.isPlaying && currentPlaying.song._id === song._id
@@ -68,9 +78,21 @@ export default function Songs() {
                       </div>
                     }
                     <div title='Save to Library'>
-                      <CirclePlus size={24} className="text-primary-text hover:cursor-pointer hidden md:block" strokeWidth={1} />
+                      {liked.includes(song._id)
+                      ?
+                      <AiFillPlusCircle
+                        onClick={()=>removeInteraction(song._id)}
+                        size={24} 
+                        className="text-primary-text hover:cursor-pointer hidden md:block" strokeWidth={1} 
+                      />
+                      :
+                      <CirclePlus 
+                        onClick={()=>createInteraction(song._id)}
+                        size={24} 
+                        className="text-primary-text hover:cursor-pointer hidden md:block" strokeWidth={1} 
+                      />
+                      }
                     </div>
-                    <Ellipsis size={28} className="text-primary-text hover:cursor-pointer" strokeWidth={1} />
                   </div>
                 </div>
                 <hr className='opacity-5' />

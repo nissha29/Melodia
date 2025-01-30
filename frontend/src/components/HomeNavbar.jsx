@@ -14,7 +14,7 @@ function HomeNavbar() {
       <div className="py-6 px-5 flex justify-between items-center">
         <div className="flex gap-2">
           <div className='px-4 py-2 sm:text-3xl text-2xl text-[#812e79] font-medium sm:ml-8 ml-3'>Melodia</div>
-          <button className="px-4 py-2  hidden xl:block">Library</button>
+          <button className="px-4 py-2  hidden xl:block">Liked Songs</button>
         </div>
         <div className="flex items-center xl:gap-4 gap-2">
           <div className="relative hidden md:block">

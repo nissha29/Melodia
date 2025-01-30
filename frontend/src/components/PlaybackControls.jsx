@@ -2,17 +2,24 @@ import React from 'react'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 import { currentPlayingSong } from '../store/atoms/currentPlayingSong'
 import { CirclePlus, Pause, CirclePlay, SkipBack, SkipForward } from 'lucide-react'
+import { AiFillPlusCircle } from "react-icons/ai";
 import { useTogglePlayPause } from '../hooks/useTogglePlayPause'
 import { Maximize2, Volume2 } from 'lucide-react'
 import formatSecondsToMinutesSeconds from '../utils/formatSecondsToMinutesSeconds'
 import { useSkipControls } from '../hooks/useSkipControls'
 import { FullScreen } from '../store/atoms/FullScreen'
+import { likeState } from '../store/atoms/likeState'
+import { useHandleCreateInteraction } from '../hooks/useHandleCreateInteraction'
+import { useHandleRemoveInteraction } from '../hooks/useHandleRemoveInteraction';
 
 export default function PlaybackControls({ handlePlay, handlePause, handleSeek, handleVolumeChange, currentTime }) {
     const currentPlaying = useRecoilValue(currentPlayingSong);
     const togglePlayPause = useTogglePlayPause();
     const { handleSkip } = useSkipControls();
     const setIsFullScreen = useSetRecoilState(FullScreen);
+    const liked = useRecoilValue(likeState);
+    const { createInteraction } = useHandleCreateInteraction();
+    const { removeInteraction } = useHandleRemoveInteraction();
     
     return (
         <>
@@ -105,7 +112,19 @@ export default function PlaybackControls({ handlePlay, handlePause, handleSeek, 
                                 onClick={()=>handleSkip('forward')}
                             />
                         </div>
-                        <CirclePlus className='hidden sm:block hover:text-primary-text hover:cursor-pointer' strokeWidth={1} />
+                        {liked.includes(currentPlaying.song._id) 
+                        ?
+                        <AiFillPlusCircle 
+                            onClick={()=>removeInteraction(currentPlaying.song._id)}
+                            className='hidden sm:block text-primary-text hover:cursor-pointer' strokeWidth={1} 
+                            size={24}
+                        />
+                        :
+                        <CirclePlus 
+                           onClick={()=>createInteraction(currentPlaying.song._id)}
+                            className='hidden sm:block hover:text-primary-text hover:cursor-pointer' strokeWidth={1} 
+                        />
+                        }
                         <div className='hidden md:flex gap-1.5 hover:text-primary-text'>
                             <Volume2
                                 strokeWidth={1}

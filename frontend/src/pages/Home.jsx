@@ -10,6 +10,7 @@ import { FullScreen } from '../store/atoms/FullScreen';
 import FullScreenPlayer from '../components/FullScreenPlayer';
 import { useHandleAudio } from '../hooks/useHandleAudio';
 import { currentPlayingSong } from '../store/atoms/currentPlayingSong';
+import { Outlet } from 'react-router-dom';
 
 const HomePage = () => {
   const isFullScreen = useRecoilValue(FullScreen);
@@ -47,10 +48,11 @@ const HomePage = () => {
         <div className="flex text-white font-playwrite w-full h-screen overflow-hidden justify-evenly">
           <div className="flex-1 flex flex-col justify-between">
             <HomeNavbar />
-            <div className='flex flex-col overflow-y-scroll scrollbar-none'>
+            {/* <div className='flex flex-col overflow-y-scroll scrollbar-none'>
               <HomeHeroBanner />
               <Songs/>
-            </div>
+            </div> */}
+            <Outlet/>
             <PlaybackControls
               handlePlay={handlePlay}
               handlePause={handlePause}

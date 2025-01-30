@@ -5,8 +5,10 @@ import { useRecoilValue } from 'recoil';
 import { useSkipControls } from '../hooks/useSkipControls';
 import { useHandleAudio } from '../hooks/useHandleAudio';
 import { useTogglePlayPause } from '../hooks/useTogglePlayPause';
+import { useNavigate } from 'react-router-dom';
 
 function HomeSidebar() {
+    const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
     const currentPlaying = useRecoilValue(currentPlayingSong);
     const { handleSkip } = useSkipControls();
@@ -44,18 +46,18 @@ function HomeSidebar() {
                     ${isOpen ? 'opacity-100' : 'opacity-0'}
                     transition-opacity duration-300
                 `}>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-2" onClick={() => navigate('/home')}>
                         <Home size={24} className='text-white'/>
                         <span className='text-primary-text cursor-pointer'>Home</span>
                     </div>
                     <div className="space-y-4">
                         <div className="flex items-center gap-2">
                             <Library size={24} className='text-white'/>
-                            <span className='text-primary-text cursor-pointer'>Library</span>
+                            <span className='text-primary-text cursor-pointer' onClick={() => navigate('/home/liked')}>Liked songs</span>
                         </div>
                         <div className="pl-8 space-y-2 text-[#997095] flex flex-col gap-2">
-                            <div className='cursor-pointer'>Discover</div>
-                            <div className='cursor-pointer'>Genre</div>
+                            <div className='cursor-pointer' onClick={() => navigate('/home/discover')}>Discover</div>
+                            <div className='cursor-pointer' onClick={() => navigate('/home/genre')}>Genre</div>
                         </div>
                     </div>
                 </div>
