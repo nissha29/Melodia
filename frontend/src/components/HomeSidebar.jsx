@@ -76,7 +76,7 @@ function HomeSidebar() {
                         <div className='text-primary-text text-sm'>{currentPlaying.song.artistName}</div>
                         <div className='pt-3 flex gap-2 sm:px-8'>
                             <SkipBack 
-                                className='hover:text-primary-text hidden md:block hover:cursor-pointer' strokeWidth={1} 
+                                className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1} 
                                 onClick={()=>handleSkip('backward')}
                             />
                             {currentPlaying.isPlaying
@@ -98,7 +98,7 @@ function HomeSidebar() {
                                 />
                             }
                             <SkipForward 
-                                className='hover:text-primary-text hidden md:block hover:cursor-pointer' strokeWidth={1} 
+                                className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1} 
                                 onClick={()=>handleSkip('forward')}
                             />
                         </div>

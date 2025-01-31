@@ -10,15 +10,21 @@ import { FullScreen } from '../store/atoms/FullScreen'
 import { likeState } from '../store/atoms/likeState'
 import { useHandleCreateInteraction } from '../hooks/useHandleCreateInteraction'
 import { useHandleRemoveInteraction } from '../hooks/useHandleRemoveInteraction'
+import { likedSongsState } from '../store/atoms/likedSongsState'
 
 export default function FullScreenPlayer({ handlePlay, handlePause, handleSeek, handleVolumeChange, currentTime }) {
   const currentPlaying = useRecoilValue(currentPlayingSong);
   const togglePlayPause = useTogglePlayPause();
   const { handleSkip } = useSkipControls();
+  const likedSongs = useRecoilValue(likedSongsState);
   const setIsFullScreen = useSetRecoilState(FullScreen);
   const liked = useRecoilValue(likeState);
   const { createInteraction } = useHandleCreateInteraction();
   const { removeInteraction } = useHandleRemoveInteraction();
+
+  function isLiked(songId){
+    return likedSongs.some(likedSong => likedSong._id === songId);
+  }
 
   return (
     <div className={`relative bg-[#0f1214] w-screen h-screen font-playwrite flex flex-col gap-y-2 justify-center items-center px-10 overflow-y-scroll overflow-x-hidden scrollbar-none`}>
@@ -89,7 +95,7 @@ export default function FullScreenPlayer({ handlePlay, handlePause, handleSeek, 
             <div className='text-sm font-thin font-playwrite pl-2 mt-1'>{formatSecondsToMinutesSeconds(currentPlaying.song.duration)}</div>
           </div>
           <div className='flex justify-between px-5'>
-            {liked.includes(currentPlaying.song._id)
+            {(liked.includes(currentPlaying.song._id) || isLiked(currentPlaying.song._id))
               ?
               <AiFillPlusCircle
                 onClick={() => removeInteraction(currentPlaying.song._id)}

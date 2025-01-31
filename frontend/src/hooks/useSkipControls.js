@@ -1,10 +1,25 @@
 import { currentPlayingSong } from "../store/atoms/currentPlayingSong";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { songsAtom } from "../store/atoms/Songs";
+import { likedSongsState } from "../store/atoms/likedSongsState";
 
-export function useSkipControls(){
+export function useSkipControls(sourceType){
     const [currentPlaying, setCurrentPlaying] = useRecoilState(currentPlayingSong);
-    const songs = useRecoilValue(songsAtom);
+    const allTracks = useRecoilValue(songsAtom);
+    const likedTracks = useRecoilValue(likedSongsState);
+
+    const getSongsArray = () => {
+        switch(sourceType){
+            case 'home' :
+                return allTracks;
+            case 'liked' :
+                return likedTracks;
+            default :
+                return allTracks;
+        }
+    }
+
+    const songs = getSongsArray();
 
     function handleSkip(direction){
         const currentIndex = songs.findIndex((song) => {

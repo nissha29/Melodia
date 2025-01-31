@@ -11,6 +11,7 @@ import { likeState } from '../store/atoms/likeState.js'
 import { useHandleCreateInteraction } from '../hooks/useHandleCreateInteraction.js'
 import { useHandleRemoveInteraction } from '../hooks/useHandleRemoveInteraction.js'
 import { FullScreen } from '../store/atoms/FullScreen.js';
+import { likedSongsState } from '../store/atoms/likedSongsState.js';
 
 export default function Songs() {
   const togglePlayPause = useTogglePlayPause();
@@ -18,6 +19,7 @@ export default function Songs() {
   const { handlePlay, handlePause } = useHandleAudio()
   const songs = useRecoilValue(songsAtom);
   const liked = useRecoilValue(likeState);
+  const likedSongs = useRecoilValue(likedSongsState);
   const setIsFullScreen = useSetRecoilState(FullScreen);
   const { fetchSongs } = useSongs();
   const { createInteraction } = useHandleCreateInteraction();
@@ -27,9 +29,13 @@ export default function Songs() {
     fetchSongs();
     const songs = setInterval(() => {
       fetchSongs();
-    }, 2000);
+    }, 1000);
     return () => clearInterval(songs);
   }, []);
+
+  function isLiked(songId){
+    return likedSongs.some(likedSong => likedSong._id === songId);
+  }
 
   return (
     <div className="h-full">
@@ -44,7 +50,12 @@ export default function Songs() {
                     src={song.imageUrl}
                     alt={song.songTitle}
                     className="w-10 h-10 rounded-md flex-shrink-0"
-                    onClick={()=>setIsFullScreen(true)}
+                    onClick={
+                      ()=>{
+                        togglePlayPause(song)
+                        setIsFullScreen(true)
+                      }
+                    }
                   />
                   <div className="flex-1 min-w-0">
                     <div className="font-semibold truncate">{song.songTitle}</div>
@@ -78,7 +89,7 @@ export default function Songs() {
                       </div>
                     }
                     <div title='Save to Library'>
-                      {liked.includes(song._id)
+                      {(liked.includes(song._id)) || isLiked(song._id)
                       ?
                       <AiFillPlusCircle
                         onClick={()=>removeInteraction(song._id)}

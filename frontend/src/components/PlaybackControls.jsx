@@ -12,10 +12,10 @@ import { likeState } from '../store/atoms/likeState'
 import { useHandleCreateInteraction } from '../hooks/useHandleCreateInteraction'
 import { useHandleRemoveInteraction } from '../hooks/useHandleRemoveInteraction';
 
-export default function PlaybackControls({ handlePlay, handlePause, handleSeek, handleVolumeChange, currentTime }) {
+export default function PlaybackControls({ handlePlay, handlePause, handleSeek, handleVolumeChange, currentTime , sourceType}) {
     const currentPlaying = useRecoilValue(currentPlayingSong);
     const togglePlayPause = useTogglePlayPause();
-    const { handleSkip } = useSkipControls();
+    const { handleSkip } = useSkipControls(sourceType);
     const setIsFullScreen = useSetRecoilState(FullScreen);
     const liked = useRecoilValue(likeState);
     const { createInteraction } = useHandleCreateInteraction();

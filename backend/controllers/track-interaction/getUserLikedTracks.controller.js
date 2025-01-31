@@ -25,7 +25,7 @@ export default async function getUserLikedTracks(req,res){
         const tracks = likedTracks
             .filter(interaction => interaction.trackId)
             .map(interaction => ({
-                id: interaction.trackId._id,
+                _id: interaction.trackId._id,
                 songTitle: interaction.trackId.songTitle,
                 artistName: interaction.trackId.artistName,
                 duration: interaction.trackId.duration,
