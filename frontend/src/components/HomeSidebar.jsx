@@ -56,8 +56,9 @@ function HomeSidebar() {
                             <span className='text-primary-text cursor-pointer' onClick={() => navigate('/home/liked')}>Liked songs</span>
                         </div>
                         <div className="pl-8 space-y-2 text-[#997095] flex flex-col gap-2">
-                            <div className='cursor-pointer' onClick={() => navigate('/home/discover')}>Discover</div>
-                            <div className='cursor-pointer' onClick={() => navigate('/home/genre')}>Genre</div>
+                            <div className='cursor-pointer' onClick={() => navigate('/home/my-tracks')}>My tracks</div>
+                            <div className='cursor-pointer' onClick="">Add New Artist</div>
+                            <div className='cursor-pointer' onClick="">Add New Track</div>
                         </div>
                     </div>
                 </div>
@@ -72,8 +73,8 @@ function HomeSidebar() {
                     </div>
                     <div className='flex flex-col gap-1 justify-center items-center'>
                         <img src={currentPlaying.song.imageUrl} alt="Cover Image" className='w-52 h-52' />
-                        <div>{currentPlaying.song.songTitle}</div>
-                        <div className='text-primary-text text-sm'>{currentPlaying.song.artistName}</div>
+                        <div className='text-center'>{currentPlaying.song.songTitle}</div>
+                        <div className='text-primary-text text-sm text-center'>{currentPlaying.song.artistName}</div>
                         <div className='pt-3 flex gap-2 sm:px-8'>
                             <SkipBack 
                                 className='hover:text-primary-text hover:cursor-pointer' strokeWidth={1} 

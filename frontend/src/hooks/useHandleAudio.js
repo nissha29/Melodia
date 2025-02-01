@@ -1,12 +1,32 @@
 import { useRef, useState, useEffect } from 'react';
 import { currentPlayingSong } from '../store/atoms/currentPlayingSong';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { songsAtom } from '../store/atoms/Songs';
+import { likedSongsState } from '../store/atoms/likedSongsState';
+import { myTracksState } from '../store/atoms/myTracksState';
 
-export function useHandleAudio() {
+export function useHandleAudio(sourceType) {
     const audioRef = useRef(null);
     const [currentTime, setCurrentTime] = useState(0);  
     const [duration, setDuration] = useState(0);
-    const currentPlaying = useRecoilValue(currentPlayingSong);
+    const [currentPlaying,setCurrentPlaying] = useRecoilState(currentPlayingSong);
+    const allTracks = useRecoilValue(songsAtom);
+    const likedTracks = useRecoilValue(likedSongsState);
+    const myTracks = useRecoilValue(myTracksState);
+
+    const getSongsArray = () => {
+        switch(sourceType){
+            case 'home' :
+                return allTracks;
+            case 'liked' :
+                return likedTracks;
+            case 'my-tracks' :
+                return myTracks;
+            default :
+                return allTracks;
+        }
+    }
+
 
     useEffect(() => {
         if (audioRef.current) {
@@ -21,6 +41,20 @@ export function useHandleAudio() {
             }
         }
     }, [currentPlaying]);
+
+    const handleEnded = () => {
+        const songs = getSongsArray();
+        const currentIndex = songs.findIndex((song) => song._id === currentPlaying.song._id);
+        const nextIndex = currentIndex + 1 >= songs.length ? 0 : currentIndex + 1;
+        const nextSong = songs[nextIndex];
+        
+        if (nextSong) {
+            setCurrentPlaying({
+                song: nextSong,
+                isPlaying: true
+            });
+        }
+    };
 
     const handlePlay = () => {
         if (audioRef.current) {
@@ -67,5 +101,6 @@ export function useHandleAudio() {
         handleSeek,
         handleLoadedMetadata,
         handleVolumeChange,
+        handleEnded,
     };
 }

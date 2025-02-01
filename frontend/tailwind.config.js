@@ -28,10 +28,15 @@ module.exports = {
         floating: {
           '0%, 100%': { transform: 'translateX(35px)' },
           '50%': { transform: 'translateY(5px)' },
+        },
+        scroll: {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-50%)' },
         }
       },
       animation: {
         floating: 'floating 3s ease-in-out infinite',
+        scroll: 'scroll 200s linear infinite',
       }
     },
   },

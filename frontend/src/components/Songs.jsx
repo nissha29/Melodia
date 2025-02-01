@@ -40,7 +40,7 @@ export default function Songs() {
   return (
     <div className="h-full">
       <div className="px-6 flex-1 bg-[#171a1d] h-full">
-        <h2 className="text-2xl font-bold mt-4 mb-4">Melodia Matrix</h2>
+        <h2 className="text-2xl font-bold mb-4">Melodia Matrix</h2>
         <div className="h-[calc(100%-150px)] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-secondary-bg scrollbar-track-transparent">
           <div className="space-y-1">
             {songs.map((song) => (

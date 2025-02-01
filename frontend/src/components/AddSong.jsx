@@ -75,7 +75,7 @@ const AddSong = ({ setIsOpen }) => {
   return (
     <div className="w-full max-w-md bg-[#0f1214] shadow-sm shadow-primary-text rounded-lg p-6">
       <div className="mb-6">
-        <h2 className="text-xl font-bold text-white">Add New Song</h2>
+        <h2 className="text-xl font-bold text-white">Add New Track</h2>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>

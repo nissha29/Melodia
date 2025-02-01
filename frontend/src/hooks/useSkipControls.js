@@ -2,11 +2,13 @@ import { currentPlayingSong } from "../store/atoms/currentPlayingSong";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { songsAtom } from "../store/atoms/Songs";
 import { likedSongsState } from "../store/atoms/likedSongsState";
+import { myTracksState } from "../store/atoms/myTracksState";
 
 export function useSkipControls(sourceType){
     const [currentPlaying, setCurrentPlaying] = useRecoilState(currentPlayingSong);
     const allTracks = useRecoilValue(songsAtom);
     const likedTracks = useRecoilValue(likedSongsState);
+    const myTracks = useRecoilValue(myTracksState);
 
     const getSongsArray = () => {
         switch(sourceType){
@@ -14,6 +16,8 @@ export function useSkipControls(sourceType){
                 return allTracks;
             case 'liked' :
                 return likedTracks;
+            case 'my-tracks' :
+                return myTracks;
             default :
                 return allTracks;
         }

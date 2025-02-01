@@ -11,11 +11,6 @@ import { currentPlayingSong } from '../store/atoms/currentPlayingSong';
 import { Outlet, useLocation } from 'react-router-dom';
 
 const HomePage = () => {
-  const isFullScreen = useRecoilValue(FullScreen);
-  const location = useLocation();
-  const { audioRef, currentTime, handleTimeUpdate, handleLoadedMetadata, handlePause, handlePlay, handleSeek, handleVolumeChange } = useHandleAudio();
-  const currentPlaying = useRecoilValue(currentPlayingSong
-  );
 
   function getSourceType(){
     const path = location.pathname;
@@ -23,8 +18,15 @@ const HomePage = () => {
       return "home";
     }else if(path === "/home/liked"){
       return "liked";
+    }else if(path === "/home/my-tracks"){
+      return "my-tracks";
     }
   }
+
+  const isFullScreen = useRecoilValue(FullScreen);
+  const location = useLocation();
+  const { audioRef, currentTime, handleTimeUpdate, handleLoadedMetadata, handlePause, handlePlay, handleSeek, handleVolumeChange, handleEnded } = useHandleAudio(getSourceType());
+  const currentPlaying = useRecoilValue(currentPlayingSong);
 
   return (
     <>
@@ -33,6 +35,7 @@ const HomePage = () => {
         src={currentPlaying.song.trackUrl}
         onTimeUpdate={handleTimeUpdate}
         onLoadedMetadata={handleLoadedMetadata}
+        onEnded={handleEnded}
         className="hidden"
       />
     {

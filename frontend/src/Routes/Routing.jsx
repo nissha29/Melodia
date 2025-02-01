@@ -8,8 +8,7 @@ import PublicRoute from './PublicRoute.jsx'
 import ProtectedRoute from './ProtectedRoute.jsx'
 import HomeContent from '../components/HomeContent.jsx'
 import LikedSongs from '../components/LikedSongs.jsx'
-import Discover from '../components/Discover.jsx'
-import Genre from '../components/Genre.jsx'
+import MyTracks from '../components/MyTracks.jsx'
 
 function Routing() {
   return (
@@ -37,8 +36,7 @@ function Routing() {
         }>
           <Route index element={<HomeContent />} />
           <Route path="liked" element={<LikedSongs />} />
-          <Route path="discover" element={<Discover />} />
-          <Route path="genre" element={<Genre />} />
+          <Route path="my-tracks" element={<MyTracks />} />
         </Route>
       </Routes>
     </div>
