@@ -1,7 +1,6 @@
 import React from 'react';
 import HomeSidebar from '../components/HomeSidebar';
 import HomeNavbar from '../components/HomeNavbar';
-import Categories from '../components/Categories';
 import PlaybackControls from '../components/PlaybackControls';
 import { useRecoilValue } from 'recoil';
 import { FullScreen } from '../store/atoms/FullScreen';
