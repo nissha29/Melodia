@@ -80,8 +80,8 @@ export default function LikedSongs() {
                                             }
                                         />
                                         <div className="flex-1 min-w-0">
-                                            <div className="font-semibold truncate">{song.songTitle}</div>
-                                            <div className="text-sm text-primary-text truncate pb-1">{song.artistName}</div>
+                                            <div className="font-semibold truncate sm:max-w-60 max-w-40">{song.songTitle}</div>
+                                            <div className="text-sm text-primary-text truncate sm:max-w-80 max-w-40 pb-1">{song.artistName}</div>
                                         </div>
 
                                         <div className='flex items-center xl:gap-16 gap-8 flex-shrink-0'>

@@ -42,23 +42,21 @@ function HomeSidebar() {
                 border border-gray-800
             `}>
                 <div className={`
-                    p-6 pt-24 flex flex-col gap-6 
+                    px-6 pt-20 flex flex-col gap-6 
                     ${isOpen ? 'opacity-100' : 'opacity-0'}
                     transition-opacity duration-300
                 `}>
                     <div className="flex items-center gap-2" onClick={() => navigate('/home')}>
-                        <Home size={24} className='text-white'/>
-                        <span className='text-primary-text cursor-pointer'>Home</span>
+                        <Home size={24} className='text-primary-text'/>
+                        <span className='text-white cursor-pointer hover:bg-[#6b4c68a9] px-3 py-1 rounded-lg'>Home</span>
                     </div>
                     <div className="space-y-4">
                         <div className="flex items-center gap-2">
-                            <Library size={24} className='text-white'/>
-                            <span className='text-primary-text cursor-pointer' onClick={() => navigate('/home/liked')}>Liked songs</span>
+                            <Library size={24} className='text-primary-text'/>
+                            <span className='text-white cursor-pointer hover:bg-[#6b4c68a9] px-3 py-1 rounded-lg' onClick={() => navigate('/home/liked')}>Liked songs</span>
                         </div>
-                        <div className="pl-8 space-y-2 text-[#997095] flex flex-col gap-2">
-                            <div className='cursor-pointer' onClick={() => navigate('/home/my-tracks')}>My tracks</div>
-                            <div className='cursor-pointer' onClick="">Add New Artist</div>
-                            <div className='cursor-pointer' onClick="">Add New Track</div>
+                        <div className="pl-8 space-y-2 text-white flex flex-col gap-2">
+                            <div className='cursor-pointer hover:bg-[#6b4c68a9] px-3 py-1 rounded-lg' onClick={() => navigate('/home/my-tracks')}>My tracks</div>
                         </div>
                     </div>
                 </div>

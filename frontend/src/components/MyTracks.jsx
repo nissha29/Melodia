@@ -46,7 +46,7 @@ export default function MyTracks() {
                 <div className="w-full">
                     <div className='text-2xl mb-5'>Songs added by you</div>
                     {myTracks.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center min-h-[300px]">
+                        <div className="flex flex-col items-center justify-center min-h-[400px] overflow-y-scroll scrollbar-none">
                             <div className="animate-bounce">
                                 <Music2
                                     size={64}
@@ -54,11 +54,11 @@ export default function MyTracks() {
                                 />
                             </div>
 
-                            <h2 className="text-primary-text text-3xl font-semibold mb-2">
-                                No Tracks added by you
+                            <h2 className="text-primary-text sm:text-3xl text-xl font-semibold mb-2">
+                                No songs added by you
                             </h2>
 
-                            <p className="text-gray-500 text-center max-w-md mb-6">
+                            <p className="text-gray-500 text-center max-w-md mb-6 hidden sm:block">
                                 Start exploring and add some songs to build your collection
                             </p>
                         </div>
@@ -79,8 +79,8 @@ export default function MyTracks() {
                                             }
                                         />
                                         <div className="flex-1 min-w-0">
-                                            <div className="font-semibold truncate max-w-32">{song.songTitle}</div>
-                                            <div className="text-sm text-primary-text truncate pb-1 max-w-36">{song.artistName}</div>
+                                            <div className="font-semibold truncate sm:max-w-60 max-w-40">{song.songTitle}</div>
+                                            <div className="text-sm text-primary-text truncate pb-1 sm:max-w-80 max-w-40">{song.artistName}</div>
                                         </div>
 
                                         <div className='flex items-center xl:gap-16 gap-8 flex-shrink-0'>

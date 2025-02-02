@@ -11,7 +11,7 @@ const app = express()
 dotenv.config()
 const PORT = process.env.PORT
 
-const allowedOrigins = ['http://localhost:5173'];
+const allowedOrigins = ['http://localhost:5176'];
 app.use(cors({
     origin: (origin, callback) => {
         if (!origin || allowedOrigins.includes(origin)) {

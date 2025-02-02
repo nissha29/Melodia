@@ -1,24 +1,77 @@
-import React from 'react'
-import baba from '../assets/baba.png'
-import { Heart } from 'lucide-react';
+import React from 'react';
+import baba from '../assets/baba.png';
+import { Heart, Github, Linkedin, Twitter, Instagram, Mail } from 'lucide-react';
 
 function Footer() {
+  const socialLinks = [
+    {
+      icon: <Github size={20} />,
+      href: "https://github.com/nissha29/Melodia",
+      label: "Github"
+    },
+    {
+      icon: <Linkedin size={20} />,
+      href: "https://www.linkedin.com/in/nisha-kashyap-5972a9273/",
+      label: "LinkedIn"
+    },
+    {
+      icon: <Twitter size={20} />,
+      href: "https://x.com/Nisha_297",
+      label: "Twitter"
+    },
+    {
+      icon: <Mail size={20} />,
+      href: "mailto:nishakashyap2907@gmail.com",
+      label: "Email"
+    }
+  ];
+
   return (
-    <div>
-     <div className='bottom-0 relative'>
-      <div className='absolute lg:top-[-12rem] lg:left-10 md:top-[-9rem] md:left-10 sm:top-[-9rem] sm:left-10 top-[-4.5rem] left-5 z-10 animate-floating'>
-        <img src={baba} alt="baba" className='lg:w-72 md:w-56 sm:w-48 w-28'/>
-      </div>
-      <div className='bg-secondary-bg sm:rounded-tl-full rounded-tl-3xl lg:h-44 sm:h-36 h-32 sm:mt-20 lg:mt-28 relative'>
-        <div className='text-white text-sm flex absolute sm:bottom-3 sm:right-3 gap-2 bottom-1 right-1 font-playwrite'>
-          <div>Made with </div>
-          <Heart className='text-red-600' size={24}/>
-          <div>by Melodia</div>
+    <footer className="bg-primary-bg text-white relative mt-24 font-playwrite">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 justify-between">
+          {/* About Section */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-playwrite font-semibold text-primary-text">About Melodia</h3>
+            <p className="text-gray-300 text-sm">
+              Your premium music streaming platform. Experience music in its purest form.
+            </p>
+          </div>
+
+          {/* Social Links */}
+          <div className="space-y-4">
+            <h3 className="text-xl font-playwrite font-semibold">Connect With Us</h3>
+            <div className="flex gap-4">
+              {socialLinks.map((link, index) => (
+                <a
+                  key={index}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-primary-text transition-colors"
+                  aria-label={link.label}
+                >
+                  {link.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <div className="border-t border-gray-700 mt-8 pt-6 flex flex-col sm:flex-row justify-between items-center">
+          <p className="text-sm text-gray-300">
+            © {new Date().getFullYear()} Melodia. All rights reserved.
+          </p>
+          <div className="flex items-center gap-2 mt-4 sm:mt-0 font-playwrite text-sm">
+            <span>Made with</span>
+            <Heart className="text-red-600" size={18} />
+            <span>by Melodia</span>
+          </div>
         </div>
       </div>
-    </div>      
-    </div>
-  )
+    </footer>
+  );
 }
 
-export default Footer
+export default Footer;
