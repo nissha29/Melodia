@@ -60,7 +60,7 @@ export default function HeroSection() {
         <div className='text-primary-text text-2xl sm:text-5xl md:text-5xl xl:text-7xl mt-7 sm:mt-14 text-center font-thin'>
           Like Never Before
         </div>
-        <div className='text-base sm:text-lg lg:text-xl text-gray-400 mt-3 md:mt-5 font-thin text-center'>
+        <div className='text-sm sm:text-lg lg:text-xl text-gray-400 mt-3 md:mt-5 font-thin text-center'>
           Add your favorite tracks to the list
         </div>
 
