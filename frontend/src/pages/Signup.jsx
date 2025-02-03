@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import woman from '../assets/woman.png'
 import { Eye, EyeOff, Mail, User, Lock, AlertTriangle } from 'lucide-react'
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +7,7 @@ import URL from '../../constants.js'
 import { authService } from '../services/authService.js';
 import { useSetRecoilState } from 'recoil';
 import { authState } from '../store/atoms/authState.js'
+import LoadingButton from '../components/LoadingButton.jsx';
 
 function Signup() {
   const setAuth = useSetRecoilState(authState);
@@ -82,7 +82,7 @@ function Signup() {
                   onChange={handleChange}
                   placeholder="John Doe"
                   autoComplete="user name"
-                  className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-primary-text"
+                  className="font-playwrite w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-primary-text"
                   required
                 />
               </div>
@@ -101,7 +101,7 @@ function Signup() {
                   onChange={handleChange}
                   placeholder="john@example.com"
                   autoComplete="user email"
-                  className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-primary-text"
+                  className="font-playwrite w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-primary-text"
                   required
                 />
               </div>
@@ -120,7 +120,7 @@ function Signup() {
                   onChange={handleChange}
                   placeholder="••••••••"
                   autoComplete="user password"
-                  className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-primary-text"
+                  className=" font-playwrite w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-primary-text"
                   required
                 />
                 <button
@@ -141,13 +141,13 @@ function Signup() {
             <p className="text-sm text-[#ffffff86] text-left font-playwrite">
                 Password must have: 8-50 chars, with lowercase, uppercase, number, and special character
             </p>
-            <div className="flex flex-col lg:flex-row gap-2 items-center justify-between space-y-4 md:space-y-0">
-              <button
+            <div className="flex flex-col gap-2 items-center justify-between space-y-4 md:space-y-0">
+              <LoadingButton
                 className="w-full lg:w-auto px-6 py-2 bg-secondary-bg font-playwrite text-white rounded-md hover:bg-primary-text transition-colors duration-300 lg:text-lg font-semibold"
                 type="submit"
               >
                 Sign Up
-              </button>
+              </LoadingButton>
               <NavLink
                   to={"/signin"}
                   className="text-white hover:text-[#ffffffc2] hover:underline transition-colors duration-300 font-playwrite"
@@ -170,9 +170,6 @@ function Signup() {
             Go Back
           </button>
         </div>
-      </div>
-      <div>
-        <img src={woman} alt="woman" className='lg:w-80 lg:h-96 md:w-64 md:h-96 sm:h-[26rem] h-56' />
       </div>
     </div>
   )

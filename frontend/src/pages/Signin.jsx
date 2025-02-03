@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import woman from '../assets/woman.png'
 import { Eye, EyeOff, Mail, Lock, AlertTriangle } from 'lucide-react'
 import { NavLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
@@ -8,11 +7,13 @@ import URL from '../../constants.js';
 import { authService } from '../services/authService.js';
 import { useSetRecoilState } from 'recoil';
 import { authState } from '../store/atoms/authState.js'
+import LoadingButton from '../components/LoadingButton.jsx';
 
 function Signin() {
   const setAuth = useSetRecoilState(authState);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -27,6 +28,7 @@ function Signin() {
   }
 
   const handleSubmit = async(e)=>{
+    setIsLoading(true);
     setError('');
     e.preventDefault();
     try{
@@ -38,6 +40,7 @@ function Signin() {
         }
       )
       authService.signIn(setAuth,response);
+      setIsLoading(false);
     }catch(err){
       if (err.response) {
         if (err.response.status === 404) {
@@ -80,7 +83,7 @@ function Signin() {
                   onChange={handleChange}
                   placeholder="john@example.com"
                   autoComplete="user email"
-                  className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-primary-text"
+                  className="font-playwrite w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-primary-text"
                   required
                 />
               </div>
@@ -99,7 +102,7 @@ function Signin() {
                   onChange={handleChange}
                   placeholder="••••••••"
                   autoComplete="user password"
-                  className="w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-primary-text"
+                  className="font-playwrite w-full px-2 py-2 outline-none text-lg bg-transparent text-white placeholder-primary-text"
                   required
                 />
                 <button
@@ -120,13 +123,14 @@ function Signin() {
             <p className="text-sm text-[#ffffff86] text-left font-playwrite">
                 Password must have: 8-50 chars, with lowercase, uppercase, number, and special character
             </p>
-            <div className="flex flex-col lg:flex-row gap-2 items-center justify-between space-y-4 md:space-y-0">
-              <button
-                className="w-full lg:w-auto px-6 py-2 bg-secondary-bg font-playwrite text-white rounded-md hover:bg-primary-text transition-colors duration-300 lg:text-lg font-semibold"
+            <div className="flex flex-col gap-2 items-center justify-between space-y-4 md:space-y-0">
+              <LoadingButton
+                className="px-6 py-2 bg-secondary-bg font-playwrite text-white rounded-md hover:bg-primary-text transition-colors duration-300 lg:text-lg font-semibold"
                 type="submit"
+                isLoading={isLoading}
               >
                 Sign In
-              </button>
+              </LoadingButton>
               <div className="flex gap-2 text-white font-playwrite">
                 <div>New User?</div>
                 <NavLink
@@ -152,9 +156,6 @@ function Signin() {
             Go Back
           </button>
         </div>
-      </div>
-      <div>
-        <img src={woman} alt="woman" className='lg:w-80 lg:h-96 md:w-64 md:h-96 sm:h-[26rem] h-56' />
       </div>
     </div>
   )

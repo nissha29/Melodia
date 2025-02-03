@@ -14,6 +14,7 @@ const LoadingButton = ({ isLoading, children }) => {
         flex items-center justify-center
         disabled:opacity-70 disabled:cursor-not-allowed
         space-x-2
+        font-playwrite
       `}
     >
       {isLoading ? (

@@ -36,7 +36,7 @@ export default function () {
                     className='w-[45rem] h-[45rem] shadow-pink-300 shadow-2xl transition-all duration-300 hover:-translate-y-4'
                 />
             </div>
-            <div className='md:hidden hidden sm:flex justify-center items-center pt-24 px-11 mt-24'>
+            <div className='md:hidden hidden sm:flex justify-center items-center pt-24 px-11'>
                 <img
                     src={dashboardImageForMD}
                     alt="dashBoardImage"

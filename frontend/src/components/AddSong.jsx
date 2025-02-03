@@ -148,14 +148,8 @@ const AddSong = ({ setIsOpen }) => {
             required
           />
         </div>
-        {/* <button 
-          type="submit"
-          className="w-full px-4 py-2 bg-[#6B4C68] text-white rounded-md hover:bg-[#997095] transition-colors"
-        >
-          {isLoading ? "Loading....." : "Add Song"}
-        </button> */}
         <LoadingButton isLoading={isLoading}>
-            Add Song
+            Add Track
         </LoadingButton>
       </form>
     </div>

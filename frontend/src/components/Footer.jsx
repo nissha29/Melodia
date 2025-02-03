@@ -1,6 +1,5 @@
 import React from 'react';
-import baba from '../assets/baba.png';
-import { Heart, Github, Linkedin, Twitter, Instagram, Mail } from 'lucide-react';
+import { Heart, Github, Linkedin, Twitter, Mail } from 'lucide-react';
 
 function Footer() {
   const socialLinks = [
