@@ -27,10 +27,6 @@ export default function Songs() {
 
   useEffect(() => {
     fetchSongs();
-    const songs = setInterval(() => {
-      fetchSongs();
-    }, 1000);
-    return () => clearInterval(songs);
   }, []);
 
   function isLiked(songId){

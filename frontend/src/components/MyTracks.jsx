@@ -19,11 +19,7 @@ export default function MyTracks() {
 
     useEffect(() => {
       fetchMyTracks();
-        const songs = setInterval(() => {
-          fetchMyTracks();
-        }, 2000);
-        return () => clearInterval(songs);
-    }, []);
+    }, [myTracks]);
 
     return (
         <div className="bg-primary-bg text-white sm:px-7 px-3 overflow-y-scroll scrollbar-none">

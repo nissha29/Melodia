@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import URL from '../../constants.js'
 import axios from 'axios';
 import LoadingButton from './LoadingButton.jsx';
+import useSongs from '../hooks/useSongs.js';
 
 const AddSong = ({ setIsOpen }) => {
 
@@ -18,6 +19,7 @@ const AddSong = ({ setIsOpen }) => {
     image: '',
   });
   const [isLoading, setIsLoading] = useState(false);
+  const { fetchSongs } = useSongs(); 
 
   const handleChange = (e) => {
     if(e.target.type === 'text' || e.target.type === 'select-one'){
@@ -58,6 +60,7 @@ const AddSong = ({ setIsOpen }) => {
           withCredentials: true,
         },
       );
+      fetchSongs();
       setIsLoading(false);
       setIsOpen(false);
       setFormData({

@@ -1,10 +1,10 @@
-import { useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { myTracksState } from "../store/atoms/myTracksState";
 import URL from '../../constants.js'
 import axios from "axios";
 
 export function useFetchMyTracks() {
-    const setMyTracks = useSetRecoilState(myTracksState);
+    const [myTracks,setMyTracks] = useRecoilState(myTracksState);
     async function fetchMyTracks(){
         try{
             const response = await axios.get(
@@ -13,7 +13,9 @@ export function useFetchMyTracks() {
                     withCredentials: true,
                 }
             );
-            setMyTracks(response.data.tracks);
+            if(JSON.stringify(myTracks)  != JSON.stringify(response.data.tracks)){
+                setMyTracks(response.data.tracks)
+            }
         }catch(error){
             console.log(error);
         }

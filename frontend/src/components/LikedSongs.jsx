@@ -17,13 +17,13 @@ export default function LikedSongs() {
     const likedSongs = useRecoilValue(likedSongsState);
     const { fetchLikedSongs } = useFetchLikedSongs();
 
+    // useEffect(() => {
+    //     fetchLikedSongs();
+    // }, []);
+
     useEffect(() => {
         fetchLikedSongs();
-        const songs = setInterval(() => {
-            fetchLikedSongs();
-        }, 2000);
-        return () => clearInterval(songs);
-    }, []);
+    }, [likedSongs]);
 
     return (
         <div className="bg-primary-bg text-white sm:px-7 px-3 overflow-y-scroll scrollbar-none">
