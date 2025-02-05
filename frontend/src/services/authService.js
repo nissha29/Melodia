@@ -8,7 +8,11 @@ export const authService = {
 
     async checkAuth(setAuth){
 
-        const token = Cookies.get(AUTH_TOKEN_KEY);
+        const token = Cookies.get(AUTH_TOKEN_KEY, {
+            domain: 'melodia-grfx.onrender.com',
+            path: '/',
+        });
+        console.log(token);
 
         if(! token){
             setAuth({
@@ -22,7 +26,7 @@ export const authService = {
             const response = await axios.get(
                 `${URL}/api/user/verify-token`,
                 {
-                    headers: { Authorization: `Bearer ${token}` },
+                    headers: { authorization: `${token}` },
                 }
             );
             if(response.data.success){
@@ -39,7 +43,10 @@ export const authService = {
                     })
                 }catch(err){
                     console.log(`error while fetching user data in authService, ${err}`)
-                    Cookies.remove(AUTH_TOKEN_KEY);
+                    Cookies.remove(AUTH_TOKEN_KEY, {
+                        domain: 'melodia-grfx.onrender.com',
+                        path: '/',
+                    });
                     setAuth({
                         isAuthenticated: false,
                         user: null,
@@ -48,7 +55,10 @@ export const authService = {
             }
         }catch(err){
             console.log(`error while validating token in authService, ${err}`)
-            Cookies.remove(AUTH_TOKEN_KEY);
+            Cookies.remove(AUTH_TOKEN_KEY, {
+                domain: 'melodia-grfx.onrender.com',
+                path: '/',
+            });
             setAuth({
                 isAuthenticated: false,
                 user: null,
@@ -57,7 +67,10 @@ export const authService = {
     },
 
     signIn(setAuth, response){
-        Cookies.set(AUTH_TOKEN_KEY, response.data.token);
+        Cookies.set(AUTH_TOKEN_KEY, response.data.token, {
+            domain: 'melodia-grfx.onrender.com',
+            path: '/',
+        });
         setAuth({
             isAuthenticated: true,
             user: {
@@ -68,7 +81,10 @@ export const authService = {
     },
 
     signOut(setAuth){
-        Cookies.remove(AUTH_TOKEN_KEY);
+        Cookies.remove(AUTH_TOKEN_KEY, {
+            domain: 'melodia-grfx.onrender.com',
+            path: '/',
+        });
         setAuth({
             isAuthenticated: false,
             user: null,

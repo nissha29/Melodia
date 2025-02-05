@@ -45,10 +45,13 @@ function Signin() {
       if (err.response) {
         if (err.response.status === 404) {
           setError('Invalid credentials');
+          setIsLoading(false);
         } else if (err.response.status === 500) {
           setError('Server error');
+          setIsLoading(false);
         } else {
           setError(err.response.data.message || 'An error occurred');
+          setIsLoading(false);
         }
       }
     }

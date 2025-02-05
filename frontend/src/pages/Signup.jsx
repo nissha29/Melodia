@@ -13,6 +13,7 @@ function Signup() {
   const setAuth = useSetRecoilState(authState);
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,6 +30,8 @@ function Signup() {
   }
 
   const handleSubmit = async(e)=>{
+    setIsLoading(true);
+    setError('');
     e.preventDefault();
     try{
       const response = await axios.post(
@@ -39,16 +42,21 @@ function Signup() {
         }
       )
       authService.signIn(setAuth,response);
+      setIsLoading(false);
     }catch(err){
       if (err.response) {
         if (err.response.status === 400) {
           setError('Invalid Credentials');
+          setIsLoading(false);
         } else if(err.response.status === 409) {
           setError('User already exists');
+          setIsLoading(false);
         } else if (err.response.status === 500) {
           setError('Server error');
+          setIsLoading(false);
         } else {
           setError(err.response.data.message || `An error occurred ${err}`);
+          setIsLoading(false);
         }
       }
     }
@@ -145,6 +153,7 @@ function Signup() {
               <LoadingButton
                 className="w-full lg:w-auto px-6 py-2 bg-secondary-bg font-playwrite text-white rounded-md hover:bg-primary-text transition-colors duration-300 lg:text-lg font-semibold"
                 type="submit"
+                isLoading={isLoading}
               >
                 Sign Up
               </LoadingButton>

@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 import { authState } from '../store/atoms/authState.js'
 import { useNavigate } from 'react-router-dom';
+import { authService } from '../services/authService.js'
 
 function PublicRoute({ children }) {
   const navigate = useNavigate();
-  const auth = useRecoilValue(authState);
-
+  const [auth,setAuth] = useRecoilState(authState);
+  useEffect(()=>{
+    authService.checkAuth(setAuth);
+  },[])
+  
   useEffect(()=>{
     if(auth.isAuthenticated){
         navigate('/home')
