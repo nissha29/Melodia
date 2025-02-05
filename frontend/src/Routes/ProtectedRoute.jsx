@@ -8,9 +8,6 @@ import { authService } from '../services/authService.js';
 function ProtectedRoute({ children }) {
   const [auth,setAuth] = useRecoilState(authState);
   const token = Cookies.get('token');
-  useEffect(()=>{
-    authService.checkAuth(setAuth);
-  },[])
 
   if (!token && !auth.isAuthenticated) {
     return <Navigate to="/signin" replace />;

@@ -7,10 +7,7 @@ import { authService } from '../services/authService.js'
 function PublicRoute({ children }) {
   const navigate = useNavigate();
   const [auth,setAuth] = useRecoilState(authState);
-  useEffect(()=>{
-    authService.checkAuth(setAuth);
-  },[])
-  
+
   useEffect(()=>{
     if(auth.isAuthenticated){
         navigate('/home')
