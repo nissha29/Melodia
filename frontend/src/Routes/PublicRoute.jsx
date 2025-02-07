@@ -10,6 +10,7 @@ function PublicRoute({ children }) {
 
   useEffect(()=>{
     if(auth.isAuthenticated){
+       console.log("Authenticated")
         navigate('/home')
       }
   }, [auth.isAuthenticated,navigate])

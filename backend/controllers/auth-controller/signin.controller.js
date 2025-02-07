@@ -58,7 +58,9 @@ export default async function signin(req, res) {
     .json({
       success: true,
       message: "You are signed in",
-      token
+      token,
+      name: user.name,
+      email,
     });
   } catch (err) {
     return res.status(500).json({

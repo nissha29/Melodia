@@ -7,7 +7,7 @@ const COOKIE_OPTIONS = {
     domain: 'melodia-grfx.onrender.com',
     path: '/',
     secure: true, 
-    sameSite: 'strict', 
+    sameSite: 'none', 
     expires: 7 
 };
 
@@ -20,6 +20,7 @@ export const authService = {
                 isAuthenticated: false,
                 user: null,
             });
+            console.log("No token found");
             return;
         }
 

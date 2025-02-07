@@ -67,6 +67,8 @@ export default async function signup(req, res) {
             success: true,
             message: `You are signed up`,
             token: token,
+            name,
+            email,
         })
     } catch (err) {
         return res.status(500).json({
