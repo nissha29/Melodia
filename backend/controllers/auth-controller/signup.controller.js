@@ -50,7 +50,7 @@ export default async function signup(req, res) {
 
         let cookieOptions = {
             maxAge: 30 * 24 * 60 * 60 * 1000,
-            sameSite: 'none',
+            sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
             path: '/',
