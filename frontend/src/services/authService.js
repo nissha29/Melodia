@@ -74,13 +74,4 @@ export const authService = {
             user: null,
         });
     },
-
-    handleAuthError(setAuth) {
-        Cookies.remove(AUTH_TOKEN_KEY, COOKIE_OPTIONS);
-        delete axios.defaults.headers.common['authorization'];
-        setAuth({
-            isAuthenticated: false,
-            user: null,
-        });
-    }
 };
