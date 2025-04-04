@@ -10,7 +10,7 @@
 
 ## Technologies Used
 - **Frontend** : React, Tailwind CSS
-- **Backend** : Node.js, Express 
+- **Backend** : Node.js, Express, MongoDB
 
 ## Contact
 
